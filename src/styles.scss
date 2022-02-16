@@ -1,1 +1,39 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --font-grey: #c9c9c9;
+  --primary-color: #514ef8;
+  --primary-lighter-color: #cbcafd;
+  --primary-darker-color: #3735f5;
+  --darken-bg: #0e131f;
+  --accent-color: #fe9438;
+  --accent-lighter-color: #ffdfc3;
+  --accent-darker-color: #fe7724;
+
+  // defined in theme.scss
+  // --text-primary-color: #{$light-primary-text};
+  // --text-primary-lighter-color: #{$dark-primary-text};
+  // --text-primary-darker-color: #{$light-primary-text};
+}
+
+body {
+  background-color: #131929;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.divider-accent {
+  background-color: var(--accent-color);
+  width: 120px;
+  height: 3px;
+}
+
+.margin-betewen {
+  margin-left: 5px;
+  margin-right: 5px;
+}

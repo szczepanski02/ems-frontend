@@ -1,0 +1,26 @@
+<div class="container">
+  <mat-card class="login mat-elevation-z4">
+    <div class="login__container">
+      <mat-card-title>Sign in</mat-card-title>
+      <mat-card-subtitle>Type username and password to start work</mat-card-subtitle>
+      <div class="divider-accent"></div>
+
+      <mat-card-content>
+        <mat-form-field appearance="outline">
+          <mat-label>Username</mat-label>
+          <input  [(ngModel)]="usernameValue" (ngModelChange)="inputValueChanged()" type="text" matInput placeholder="Placeholder">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <input [(ngModel)]="passwordValue" (ngModelChange)="inputValueChanged()" type="password" matInput placeholder="Placeholder">
+        </mat-form-field>
+      </mat-card-content>
+
+      <mat-card-footer>
+        <button mat-raised-button color="primary" [disabled]="!isFormValid" (click)="signIn()">Sign in</button>
+        <button mat-raised-button color="accent">Need help</button>
+      </mat-card-footer>
+
+    </div>
+  </mat-card>
+</div>
