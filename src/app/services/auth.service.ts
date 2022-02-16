@@ -1,36 +1,44 @@
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { IErrorResponse } from '../interfaces/IErrorResponse';
-import { ISuccessResponse } from '../interfaces/ISuccessResponse';
+import { ISuccessWithDataResponse } from '../interfaces/ISuccessResponse';
+import { IUserFromToken } from '../interfaces/IUserFromToken';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  api = `${environment.apiUrl}/auth`;
+  private api = `${environment.apiUrl}/auth`;
 
-  constructor(private readonly http: HttpClient) {}
+  private isLoggedIn: Subject<boolean> = new BehaviorSubject<boolean>(false);
+
+  constructor(
+    private readonly http: HttpClient
+  ) {}
 
   signIn(payload: ISignInPayload) {
-    return this.http.post<ITokenResponse>(`${this.api}/signin`, payload).subscribe({
-      next: data => {
-        this.setSession(data.response.body.token);
-      },
-      error: exception => {
-        this.handleError(exception);
-      }
-    });
+    return this.http.post<ITokenResponse>(`${this.api}/signin`, payload);
   }
 
-  async isUserAuthenticated() {
-    const promise = await this.http.get<any>(`${this.api}/isAuthorizated`).toPromise();
-    if(promise.log) {
-      return true;
-    }
-    return false;
+  isUserAuthenticated(): Observable<ISuccessWithDataResponse<IUserFromToken>> {
+    return this.http.get<any>(`${this.api}/isAuthorizated`);
+  }
+
+  setIsLoggedIn(state: boolean): void {
+    const sub = this.getIsLoggedIn().subscribe(accState => {
+      if(accState === state) return;
+      else {
+        this.isLoggedIn.next(state);
+      }
+    });
+    sub.unsubscribe();
+    this.isLoggedIn.next(state);
+  }
+
+  getIsLoggedIn(): Observable<boolean> {
+    return this.isLoggedIn.asObservable();
   }
 
   setSession(token: string) {
@@ -39,12 +47,8 @@ export class AuthService {
 
   removeSession() {
     localStorage.removeItem('access_token');
+    // this.router.navigate(['/login']);
   }
-
-  handleError(resObj: IErrorResponse) {
-    console.log(resObj.error.log);
-  }
-
 }
 
 interface ISignInPayload {
@@ -52,6 +56,6 @@ interface ISignInPayload {
   password: string;
 }
 
-interface ITokenResponse {
-  response: { body: { token: string } };
+export interface ITokenResponse {
+  body: { token: string };
 }

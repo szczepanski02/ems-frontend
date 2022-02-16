@@ -1,4 +1,12 @@
 <div class="mat-typography">
-  <router-outlet></router-outlet>
+  <router-outlet *ngIf="isLoggedIn">
+    <app-nav-toolbar></app-nav-toolbar>
+  </router-outlet>
+
+  <router-outlet *ngIf="!isLoggedIn">
+  </router-outlet>
+
+  <app-loading-screen *ngIf="isLoadingSpinnerActive"></app-loading-screen>
+  <app-notifications></app-notifications>
   <app-footer></app-footer>
 </div>

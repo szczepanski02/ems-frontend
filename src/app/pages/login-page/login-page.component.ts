@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
+import { notificationType } from 'src/app/constants/NotificationType';
+import { IErrorResponse } from 'src/app/interfaces/IErrorResponse';
+import { AuthService, ITokenResponse } from 'src/app/services/auth.service';
+import { NotificationsService } from 'src/app/shared/reusable-components/notifications/notifications.service';
 
 @Component({
   selector: 'app-login-page',
@@ -14,10 +17,14 @@ export class LoginPageComponent implements OnInit {
   passwordValue = '';
   isFormValid = false;
 
-  constructor(private router: Router, private authService: AuthService) { }
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private notificationsService: NotificationsService,
+    private matSnackBar: MatSnackBar
+  ) { }
 
   ngOnInit(): void {
-    
   }
 
   inputValueChanged(): boolean {
@@ -29,7 +36,26 @@ export class LoginPageComponent implements OnInit {
 
   signIn(): void {
     const { usernameValue, passwordValue } = this;
-    this.authService.signIn({ username: usernameValue, password: passwordValue });
+    this.authService.signIn({ username: usernameValue, password: passwordValue }).subscribe({
+      next: data => this.authenticationSuccess(data),
+      error: res => this.authenticationFailed(res)
+    });
+  }
+
+  authenticationSuccess(response: ITokenResponse): void {
+    this.authService.setSession(response.body.token);
+    this.router.navigate(['/']);
+    setTimeout(() => {
+      this.notificationsService.setNotification('Logged in', notificationType.INFO);
+    }, 200);
+  }
+
+  authenticationFailed(exception: IErrorResponse): void {
+    // snackbar
+    this.notificationsService.setNotification(exception.error.log, notificationType.ERROR);
+    this.usernameValue = '';
+    this.passwordValue = '';
+    this.isFormValid = false;
   }
 
 }
