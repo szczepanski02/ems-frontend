@@ -1,3 +1,6 @@
+@import './assets/scss/autocomplete.scss';
+@import './assets/scss/scrollbar.scss';
+
 :root {
   --font-grey: #c9c9c9;
   --primary-color: #514ef8;
@@ -23,8 +26,11 @@ body {
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1350px;
   margin: 0 auto;
+  padding: 15px;
+  box-sizing: border-box;
+  margin-top: 40px;
 }
 
 .divider-accent {

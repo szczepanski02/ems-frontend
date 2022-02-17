@@ -18,6 +18,8 @@ export class AuthGuard implements CanActivate {
     return this.authService.isUserAuthenticated().pipe(
       map(response => {
         let hasAccess;
+        this.authService.setUsername(response.body.username);
+        this.authService.setRole(response.body.role);
         if(response.body.role && authorities) {
           hasAccess = authorities.includes(response.body.role);
         }

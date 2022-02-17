@@ -1,0 +1,10 @@
+<mat-drawer-container autosize [hasBackdrop]="false">
+  <mat-drawer #drawer [(opened)]="isOpen" class="mat-elevation-z8" [mode]="drawerMode">
+    <app-selectable-list></app-selectable-list>
+  </mat-drawer>
+
+  <mat-drawer-content>
+    <ng-content></ng-content>
+  </mat-drawer-content>
+
+</mat-drawer-container>

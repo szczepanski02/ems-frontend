@@ -17,7 +17,6 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit(): void {
-    console.log('test');
     this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
           this.isLoadingSpinnerActive = true;

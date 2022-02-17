@@ -1,0 +1,14 @@
+mat-drawer {
+  width: 280px;
+  padding: 20px;
+  height: calc(100vh - 96px);
+  position: fixed;
+  top: 64px;
+  border: 0;
+  padding: 0;
+}
+
+mat-drawer-container {
+  max-height: calc(100vh - 96px);
+  overflow-y: auto;
+}

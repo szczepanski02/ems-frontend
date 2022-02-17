@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { notificationType } from 'src/app/constants/NotificationType';
 import { IErrorResponse } from 'src/app/interfaces/IErrorResponse';
@@ -20,8 +19,7 @@ export class LoginPageComponent implements OnInit {
   constructor(
     private router: Router,
     private authService: AuthService,
-    private notificationsService: NotificationsService,
-    private matSnackBar: MatSnackBar
+    private notificationsService: NotificationsService
   ) { }
 
   ngOnInit(): void {
@@ -51,7 +49,6 @@ export class LoginPageComponent implements OnInit {
   }
 
   authenticationFailed(exception: IErrorResponse): void {
-    // snackbar
     this.notificationsService.setNotification(exception.error.log, notificationType.ERROR);
     this.usernameValue = '';
     this.passwordValue = '';

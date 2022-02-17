@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AppComponent } from './app.component';
 import { LoggedOutAuthGuard } from './guards/auth-logged-out.guard';
 import { AuthGuard } from './guards/auth.guard';
-import { SidenavComponent } from './layout/sidenav/sidenav.component';
 
 const routes: Routes = [
   {
@@ -17,10 +15,16 @@ const routes: Routes = [
     data: { authorities: ['ROLE_MODERATOR', 'ROLE_ADMIN', 'ROLE_ROOT'] },
     canActivate: [AuthGuard]
   },
+  {
+    path: 'employees_management',
+    loadChildren: () => import('./pages/employees-management/employee-management.module').then(m => m.EmployeeManagementModule),
+    data: { authorities: ['ROLE_MODERATOR', 'ROLE_ADMIN', 'ROLE_ROOT'] },
+    canActivate: [AuthGuard]
+  },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {onSameUrlNavigation: "reload"})],
   exports: [RouterModule],
   providers: [AuthGuard, LoggedOutAuthGuard]
 })

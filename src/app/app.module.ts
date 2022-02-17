@@ -10,7 +10,8 @@ import { HttpInterceptorService } from './helpers/HttpInterceptorService';
 import { LoadingScreenComponent } from './components/loading-screen/loading-screen.component';
 import { SharedModule } from './shared/shared.module';
 import { NavToolbarComponent } from './layout/nav-toolbar/nav-toolbar.component';
-import { SidenavComponent } from './layout/sidenav/sidenav.component';
+import { NavDrawerModule } from './layout/nav-drawer/nav-drawer.module';
+import { UserDropdownListComponent } from './layout/nav-toolbar/user-dropdown-list/user-dropdown-list.component';
 
 @NgModule({
   declarations: [
@@ -18,18 +19,19 @@ import { SidenavComponent } from './layout/sidenav/sidenav.component';
     FooterComponent,
     LoadingScreenComponent,
     NavToolbarComponent,
-    SidenavComponent
+    UserDropdownListComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    SharedModule
+    SharedModule,
+    NavDrawerModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

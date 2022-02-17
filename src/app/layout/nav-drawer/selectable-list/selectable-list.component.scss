@@ -1,0 +1,20 @@
+.category__title {
+  text-align: center;
+  margin-bottom: 5px;
+  margin-top: 10px;
+}
+
+.li__content {
+  display: flex;
+  align-items: center;
+
+  & mat-icon {
+    margin-right: 10px;
+    color: var(--primary-color);
+  }
+}
+
+// a.disabled {
+//   color: gray;
+//   cursor: not-allowed;
+// }

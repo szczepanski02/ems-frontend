@@ -13,7 +13,7 @@ $fontConfig: (
   display-2: mat.define-typography-level(45px, 48px, 400, 'Nunito', 0.0000em),
   display-1: mat.define-typography-level(34px, 40px, 400, 'Nunito', 0.0074em),
   headline: mat.define-typography-level(24px, 32px, 400, 'Nunito', 0.0000em),
-  title: mat.define-typography-level(22px, 32px, 500, 'Nunito', 0.0068em),
+  title: mat.define-typography-level(18px, 32px, 500, 'Nunito', 0.0068em),
   subheading-2: mat.define-typography-level(18px, 28px, 400, 'Nunito', 0.0083em),
   subheading-1: mat.define-typography-level(17px, 24px, 500, 'Nunito', 0.0059em),
   body-2: mat.define-typography-level(16px, 24px, 500, 'Nunito', 0.0156em),
@@ -81,23 +81,23 @@ $mat-dark-theme-foreground: (
 
 // Background config
 // Light bg
-$light-background:    #080a11;
+$light-background:    #0f1522;
 $light-bg-darker-5:   darken($light-background, 5%);
-$light-bg-darker-10:  darken($light-background, 10%);
-$light-bg-darker-20:  darken($light-background, 20%);
-$light-bg-darker-30:  darken($light-background, 30%);
-$light-bg-lighter-5:  lighten($light-background, 5%);
+$light-bg-darker-10:  lighten($light-background, 10%);
+$light-bg-darker-20:  lighten($light-background, 20%);
+$light-bg-darker-30:  lighten($light-background, 10%);
+$light-bg-lighter-5:  lighten($light-background, 2%);
 $dark-bg-tooltip:     lighten(#2c2c2c, 20%);
-$dark-bg-alpha-4:     rgba(#2c2c2c, 0.04);
+$dark-bg-alpha-4:     rgba(#8b8b8b, 0.04);
 $dark-bg-alpha-12:    rgba(#2c2c2c, 0.12);
 
 $mat-light-theme-background: (
-  background:               $light-background,
+  background:               $light-bg-lighter-5,
   status-bar:               $light-bg-darker-20,
   app-bar:                  $light-bg-darker-5,
   hover:                    $dark-bg-alpha-4,
   card:                     $light-bg-lighter-5,
-  dialog:                   $light-bg-lighter-5,
+  dialog:                   $light-background,
   tooltip:                  $dark-bg-tooltip,
   disabled-button:          $dark-bg-alpha-12,
   raised-button:            $light-bg-lighter-5,

@@ -1,0 +1,71 @@
+<mat-selection-list #shoes [multiple]="false">
+  <div class="category__container">
+    <h2 class="category__title">Main</h2>
+    <mat-list-option *ngFor="let item of navCategoryFilter('main')" class="li__item">
+      <button mat-button class="li__content" [disabled]="!authorityFilter(item.authorities)">
+        <mat-icon>{{ item.icon }}</mat-icon>
+        <span>{{ item.title }}</span>
+      </button>
+    </mat-list-option>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div class="category__container">
+    <h2 class="category__title">Users</h2>
+    <mat-list-option *ngFor="let item of navCategoryFilter('users_management')" class="li__item">
+      <button mat-button class="li__content" [disabled]="!authorityFilter(item.authorities)">
+        <mat-icon>{{ item.icon }}</mat-icon>
+        <span>{{ item.title }}</span>
+      </button>
+    </mat-list-option>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div class="category__container">
+    <h2 class="category__title">Creators</h2>
+    <mat-list-option *ngFor="let item of navCategoryFilter('creator_management')" class="li__item">
+      <button mat-button class="li__content" [disabled]="!authorityFilter(item.authorities)">
+        <mat-icon>{{ item.icon }}</mat-icon>
+        <span>{{ item.title }}</span>
+      </button>
+    </mat-list-option>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div class="category__container">
+    <h2 class="category__title">Events</h2>
+    <mat-list-option *ngFor="let item of navCategoryFilter('events_management')" class="li__item">
+      <button mat-button class="li__content" [disabled]="!authorityFilter(item.authorities)">
+        <mat-icon>{{ item.icon }}</mat-icon>
+        <span>{{ item.title }}</span>
+      </button>
+    </mat-list-option>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div class="category__container">
+    <h2 class="category__title">Payments</h2>
+    <mat-list-option *ngFor="let item of navCategoryFilter('payments_management')" class="li__item">
+      <button mat-button class="li__content" [disabled]="!authorityFilter(item.authorities)">
+        <mat-icon>{{ item.icon }}</mat-icon>
+        <span>{{ item.title }}</span>
+      </button>
+    </mat-list-option>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div class="category__container">
+    <h2 class="category__title">Employees</h2>
+    <mat-list-option *ngFor="let item of navCategoryFilter('employees_management')" class="li__item">
+      <button mat-button class="li__content" routerLink="{{ item.directTo }}" [disabled]="!authorityFilter(item.authorities)">
+        <mat-icon>{{ item.icon }}</mat-icon>
+        <span>{{ item.title }}</span>
+      </button>
+    </mat-list-option>
+  </div>
+</mat-selection-list>

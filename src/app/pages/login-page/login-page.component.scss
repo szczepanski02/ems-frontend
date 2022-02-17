@@ -5,15 +5,21 @@
   align-items: center;
 }
 
-mat-card {
-  max-width: 420px;
-}
-
 mat-card-content {
   margin-top: 20px;
   display: flex;
   width: 420px;
   justify-content: space-between;
+  flex-wrap: wrap;
+  @media(max-width: 480px) {
+    width: 100%;
+  }
+}
+
+mat-form-field {
+  @media(max-width: 480px) {
+    width: 100%;
+  }
 }
 
 mat-card-footer {

@@ -1,0 +1,9 @@
+<button mat-button aria-label="Account management" [matMenuTriggerFor]="menu">
+  <span class="btn__username">{{ username }}</span>
+  <mat-icon>account_circle</mat-icon>
+</button>
+<mat-menu #menu="matMenu" xPosition="before" class="collaping-menu">
+  <button mat-menu-item (click)="handleLogout()"><mat-icon color="primary">logout</mat-icon>logout</button>
+  <button mat-menu-item><mat-icon color="primary">manage_accounts</mat-icon>profile</button>
+  <button mat-menu-item><mat-icon color="primary">settings</mat-icon>settings</button>
+</mat-menu>

@@ -1,7 +1,15 @@
 <div class="mat-typography">
-  <router-outlet *ngIf="isLoggedIn">
+  <div *ngIf="isLoggedIn">
     <app-nav-toolbar></app-nav-toolbar>
-  </router-outlet>
+    <div class="page__container">
+      <app-nav-drawer>
+        <div class="router__container">
+          <router-outlet *ngIf="isLoggedIn">
+          </router-outlet>
+        </div>
+      </app-nav-drawer>
+    </div>
+  </div>
 
   <router-outlet *ngIf="!isLoggedIn">
   </router-outlet>
