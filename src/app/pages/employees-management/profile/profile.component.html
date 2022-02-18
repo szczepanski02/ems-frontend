@@ -1,0 +1,11 @@
+<div class="container">
+  <mat-card>
+    <mat-card-title>Profile image</mat-card-title>
+
+    <mat-card-content>
+
+      <input class="form-control" type="file" (change)="onChange($event)">
+      <button [disabled]="!fileSenderButtonIsActive" mat-raised-button color="primary" (click)="onUpload()">Upload</button>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/services/auth.service';
+import { EmployeeService } from 'src/app/services/employee.service';
 import { navItemList } from './item-list';
 
 @Component({
@@ -13,10 +13,10 @@ export class SelectableListComponent implements OnInit {
   navItems: IItemOfList[] = navItemList;
   employeeAuthority?: string;
 
-  constructor(private authService: AuthService) { }
+  constructor(private employeeService: EmployeeService) { }
 
   ngOnInit(): void {
-    this.employeeAuthority = this.authService.getRole();
+    this.employeeAuthority = this.employeeService.getRole();
   }
 
   navCategoryFilter(categoryName: string): any {

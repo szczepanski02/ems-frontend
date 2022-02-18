@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/services/auth.service';
+import { EmployeeService } from 'src/app/services/employee.service';
 import { NavDrawerService } from '../nav-drawer/nav-drawer.service';
 
 @Component({
@@ -14,12 +14,16 @@ export class NavToolbarComponent implements OnInit {
 
   constructor(
     private navDrawerService: NavDrawerService,
-    private authService: AuthService
+    private employeeService: EmployeeService
     ) { }
 
   ngOnInit(): void {
     this.elem = document.querySelector<HTMLElement>('.hamburger_btn');
-    this.username = this.authService.getUsername();
+    this.username = this.employeeService.getUsername();
+
+    if(!this.navDrawerService.getState()) {
+      this.navDrawerService.setIsOpen(!this.navDrawerService.getState());
+    }
   }
 
   changeDrawerNavState(): void {

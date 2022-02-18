@@ -13,28 +13,10 @@ export class AuthService {
   private api = `${environment.apiUrl}/auth`;
 
   private isLoggedIn: Subject<boolean> = new BehaviorSubject<boolean>(false);
-  private username?: string;
-  private role?: string;
 
   constructor(
     private readonly http: HttpClient
   ) {}
-
-  setUsername(state: string): void {
-    this.username = state;
-  }
-
-  getUsername(): string | undefined {
-    return this.username;
-  }
-
-  setRole(state: string): void {
-    this.role = state;
-  }
-
-  getRole(): string | undefined {
-    return this.role;
-  }
 
   signIn(payload: ISignInPayload): Observable<ITokenResponse> {
     return this.http.post<ITokenResponse>(`${this.api}/signin`, payload);
