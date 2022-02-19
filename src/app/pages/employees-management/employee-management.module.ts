@@ -5,12 +5,14 @@ import { EmployeeManagementRoutingModule } from './employee-management-routing.m
 import { EmployeesComponent } from './employees/employees.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { IpVerificatedDetailsComponent } from './profile/ip-verificated-details/ip-verificated-details.component';
 
 
 @NgModule({
   declarations: [
     EmployeesComponent,
-    ProfileComponent
+    ProfileComponent,
+    IpVerificatedDetailsComponent
   ],
   imports: [
     CommonModule,

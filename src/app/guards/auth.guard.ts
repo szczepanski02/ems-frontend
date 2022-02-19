@@ -22,6 +22,8 @@ export class AuthGuard implements CanActivate {
         this.employeeService.setUsername(response.body.username);
         this.employeeService.setRole(response.body.role);
         this.employeeService.setId(response.body._id);
+        this.employeeService.setFirstname(response.body.first_name);
+        this.employeeService.setLastname(response.body.last_name);
         if(response.body.role && authorities) {
           hasAccess = authorities.includes(response.body.role);
         }

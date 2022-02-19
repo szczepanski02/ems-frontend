@@ -14,16 +14,14 @@ export class AuthService {
 
   private isLoggedIn: Subject<boolean> = new BehaviorSubject<boolean>(false);
 
-  constructor(
-    private readonly http: HttpClient
-  ) {}
+  constructor(private readonly http: HttpClient) {}
 
   signIn(payload: ISignInPayload): Observable<ITokenResponse> {
     return this.http.post<ITokenResponse>(`${this.api}/signin`, payload);
   }
 
   isUserAuthenticated(): Observable<ISuccessWithDataResponse<IUserFromToken>> {
-    return this.http.get<any>(`${this.api}/isAuthorizated`);
+    return this.http.get<ISuccessWithDataResponse<IUserFromToken>>(`${this.api}/isAuthorizated`);
   }
 
   setIsLoggedIn(state: boolean): void {
@@ -45,7 +43,7 @@ export class AuthService {
     localStorage.setItem('access_token', token);
   }
 
-  removeSession() {
+  removeSession(): void {
     localStorage.removeItem('access_token');
     this.setIsLoggedIn(false);
   }

@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
+import { IAuthorizatedEmployee } from '../interfaces/IAuthorizatedEmployee';
 
 @Injectable({
   providedIn: 'root'
@@ -10,41 +11,66 @@ export class EmployeeService {
 
   private api = environment.apiUrl;
 
-  private id?: string;
-  private username?: string;
-  private role?: string;
+  private userProfileImage: Subject<Blob | null> = new Subject<Blob | null>();
+
+  private authorizatedEmployee: IAuthorizatedEmployee = {};
 
   constructor(private http: HttpClient) { }
   
   setId(state: string): void {
-    this.id = state;
+    this.authorizatedEmployee.id = state;
   }
 
   getId(): string | undefined {
-    return this.id;
+    return this.authorizatedEmployee.id;
   }
 
   setUsername(state: string): void {
-    this.username = state;
+    this.authorizatedEmployee.username = state;
   }
 
   getUsername(): string | undefined {
-    return this.username;
+    return this.authorizatedEmployee.username;
   }
 
   setRole(state: string): void {
-    this.role = state;
+    this.authorizatedEmployee.role = state;
   }
 
   getRole(): string | undefined {
-    return this.role;
+    return this.authorizatedEmployee.role;
   }
 
-  getProfileImg(): Observable<any> {
-    return this.http.get(`https://ems-backend-heroku.herokuapp.com/api/employee_profile_img`, { responseType: 'blob' });
+  setFirstname(state: string): void {
+    this.authorizatedEmployee.firstName = state;
   }
 
-  uploadProfileImg(file: File): Observable<any> {
+  getFirstname(): string | undefined {
+    return this.authorizatedEmployee.firstName;
+  }
+
+  setLastname(state: string): void {
+    this.authorizatedEmployee.lastName = state;
+  }
+
+  getLastname(): string | undefined {
+    return this.authorizatedEmployee.lastName;
+  }
+
+
+  getUserProfileImg(): Observable<Blob | null> {
+    return this.userProfileImage;
+  }
+
+  setUserProfileImage(): void  {
+    this.http.get(`${this.api}/employee_profile_img`, { responseType: 'blob' }).subscribe(
+      response => {
+        this.userProfileImage.next(response);
+      }
+    )
+  }
+
+  uploadProfileImg(file: File): Observable<HttpEvent<any>> {
     const formData = new FormData();
     formData.append('image', file);
 

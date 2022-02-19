@@ -1,8 +1,14 @@
 import { HttpEvent, HttpEventType } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { notificationType } from 'src/app/constants/NotificationType';
+import { IEmployee } from 'src/app/interfaces/IEmployee';
 import { IErrorResponse } from 'src/app/interfaces/IErrorResponse';
+import { AuthService } from 'src/app/services/auth.service';
 import { EmployeeService } from 'src/app/services/employee.service';
+import { EmployeesManagementService } from 'src/app/services/employees-management.service';
+import { ImageConventerService } from 'src/app/services/image-conventer.service';
 import { NotificationsService } from 'src/app/shared/reusable-components/notifications/notifications.service';
 
 @Component({
@@ -10,20 +16,57 @@ import { NotificationsService } from 'src/app/shared/reusable-components/notific
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
 
-  shortLink: string = ""; // Flag variable
   file?: File;
   fileSenderButtonIsActive = false;
+  uploadSubscription?: Subscription;
+  profileImgSubscription?: Subscription;
+  profileImg: any = null;
+  employeeSubscription?: Subscription;
+  employeeData?: IEmployee;
+  dataLoaded = false;
+  passwordChangerBtnIsActive = false;
 
   constructor(
     private employeeService: EmployeeService,
+    private employeesManagementService: EmployeesManagementService,
     private notificationsService: NotificationsService,
+    private authService: AuthService,
+    private router: Router,
+    private imageConventerService: ImageConventerService,
   ) {}
 
   ngOnInit(): void {
+    this.profileImgSubscription = this.employeeService.getUserProfileImg().subscribe(response => {
+      if(response) {
+        this.imageConventerService.createImage(response, '../../../../assets/images/default_profile.png')
+          .then(img => this.profileImg = img);
+      }
+      this.profileImg = '../../../../assets/images/default_profile.png';
+    });
+
+    const emplId = this.employeeService.getId();
+    if(emplId) {
+      this.employeeSubscription = this.employeesManagementService.getEmployee(this.employeeService.getId()).subscribe(
+        response => {
+          this.dataLoaded = true;
+          this.employeeData = response.body;
+        },
+        () => {
+          this.authService.removeSession();
+          this.router.navigate(['/login']);
+          this.dataLoaded = false;
+        }
+      );
+    }
   }
 
+  ngOnDestroy(): void {
+    this.uploadSubscription?.unsubscribe();
+    this.profileImgSubscription?.unsubscribe();
+    this.employeeSubscription?.unsubscribe();
+  }
 
   onChange(event: any): void {
     this.file = event.target.files[0];
@@ -39,12 +82,19 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  onUpload() {
+  beforeUploadAntyErrorValidator(): void {
+    this.authService.isUserAuthenticated().subscribe(
+      () => this.onUpload(),
+      () => this.router.navigate(['/login'])
+    )
+  }
+
+  onUpload(): void {
     if(!this.file) {
       this.fileSenderButtonIsActive = false;
       return;
     }
-    this.employeeService.uploadProfileImg(this.file).subscribe((event: HttpEvent<any>) => {
+    this.uploadSubscription = this.employeeService.uploadProfileImg(this.file).subscribe((event: HttpEvent<any>) => {
       switch (event.type) {
         case HttpEventType.Sent:
           this.fileSenderButtonIsActive = false;
@@ -59,6 +109,7 @@ export class ProfileComponent implements OnInit {
   }
 
   handleUploadSuccess(result: string): void {
+    this.employeeService.setUserProfileImage();
     this.notificationsService.setNotification(result, notificationType.INFO);
   }
 

@@ -1,11 +1,78 @@
 <div class="container">
-  <mat-card>
-    <mat-card-title>Profile image</mat-card-title>
 
-    <mat-card-content>
+  <div class="row">
+    <mat-card class="card-el_1">
+      <mat-card-header>
+        <div mat-card-avatar>
+          <img [src]="profileImg" *ngIf="profileImg" width="46px" height="46px" class="profile_img mat-elevation-z10" alt="" />
+          <img src="../../../../assets/images/default_profile.png" *ngIf="!profileImg" width="46px" height="46px" class="profile_img mat-elevation-z10" alt="" />
+        </div>
+        <mat-card-title >Your profile</mat-card-title>
+        <mat-card-subtitle>To configure your account use widgets</mat-card-subtitle>
+      </mat-card-header>
+      <mat-divider></mat-divider>
+      <div class="employeeData-container">
+        <p><span class="employeeData-item">UUID:</span> {{ employeeData?._id }}</p>
+        <p><span class="employeeData-item">First name:</span> {{ employeeData?.first_name }}</p>
+        <p><span class="employeeData-item">Last name:</span> {{ employeeData?.last_name }}</p>
+        <p><span class="employeeData-item">Username:</span> {{ employeeData?.username }}</p>
+        <p><span class="employeeData-item">email:</span> {{ employeeData?.email }}</p>
+        <div class="divider-accent"></div>
+        <p><span class="employeeData-item">Role:</span> {{ employeeData?.role }}</p>
+        <p><span class="employeeData-item">Is active:</span> {{ employeeData?.isActive }}</p>
+        <p><span class="employeeData-item">Created by:</span> {{ employeeData?.created_by }}</p>
+        <p><span class="employeeData-item">Created at:</span> {{ employeeData?.created_at }}</p>
+      </div>
+    </mat-card>
+  
 
-      <input class="form-control" type="file" (change)="onChange($event)">
-      <button [disabled]="!fileSenderButtonIsActive" mat-raised-button color="primary" (click)="onUpload()">Upload</button>
-    </mat-card-content>
-  </mat-card>
+    <mat-card class="card-el_2">
+      <mat-card-title>Profile image</mat-card-title>
+      <mat-card-subtitle>Setup your profile image</mat-card-subtitle>
+      <mat-divider></mat-divider>
+
+      <mat-card-content>
+        <input class="form-control" type="file" id="file" class="inputfile"  (change)="onChange($event)">
+        <button [disabled]="!fileSenderButtonIsActive" mat-raised-button color="primary" (click)="beforeUploadAntyErrorValidator()">Upload</button>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="row row-spacer">
+
+    <mat-card class="card-el_3">
+      <mat-card-title>Verificated Connections</mat-card-title>
+      <mat-card-subtitle>Your verificated ip's list</mat-card-subtitle>
+      <mat-divider></mat-divider>
+
+      <mat-card-content>
+        <app-ip-verificated-details></app-ip-verificated-details>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="card-el_4">
+      <mat-card-title>Change your password</mat-card-title>
+      <mat-card-subtitle>Type new password to change it</mat-card-subtitle>
+      <mat-divider></mat-divider>
+
+      <mat-card-content>
+        <div class="password-changer__input-container">
+          <mat-form-field appearance="outline" class="password-changer__input">
+            <mat-label>Current password</mat-label>
+            <input matInput placeholder="Current password">
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="password-changer__input">
+            <mat-label>New password</mat-label>
+            <input matInput placeholder="New password">
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="password-changer__input">
+            <mat-label>Repeat new password</mat-label>
+            <input matInput placeholder="Repeat new password">
+          </mat-form-field>
+        </div>
+        <button [disabled]="!passwordChangerBtnIsActive" mat-raised-button color="primary" (click)="onUpload()">Accept</button>
+      </mat-card-content>
+    </mat-card>
+
+  </div>
 </div>

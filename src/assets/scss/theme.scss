@@ -82,6 +82,7 @@ $mat-dark-theme-foreground: (
 // Background config
 // Light bg
 $light-background:    #0f1522;
+$special-lighter:  darken(#0f1522, 2%);
 $light-bg-darker-5:   darken($light-background, 5%);
 $light-bg-darker-10:  lighten($light-background, 10%);
 $light-bg-darker-20:  lighten($light-background, 20%);
@@ -96,7 +97,7 @@ $mat-light-theme-background: (
   status-bar:               $light-bg-darker-20,
   app-bar:                  $light-bg-darker-5,
   hover:                    $dark-bg-alpha-4,
-  card:                     $light-bg-darker-10,
+  card:                     $special-lighter,
   dialog:                   $light-background,
   tooltip:                  $dark-bg-tooltip,
   disabled-button:          $dark-bg-alpha-12,

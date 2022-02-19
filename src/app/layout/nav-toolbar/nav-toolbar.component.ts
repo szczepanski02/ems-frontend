@@ -10,7 +10,8 @@ import { NavDrawerService } from '../nav-drawer/nav-drawer.service';
 export class NavToolbarComponent implements OnInit {
 
   elem: any;
-  username?: string;
+  firstName?: string;
+  lastName?: string;
 
   constructor(
     private navDrawerService: NavDrawerService,
@@ -19,7 +20,9 @@ export class NavToolbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.elem = document.querySelector<HTMLElement>('.hamburger_btn');
-    this.username = this.employeeService.getUsername();
+    this.firstName = this.employeeService.getFirstname();
+    this.lastName = this.employeeService.getLastname();
+    this.employeeService.setUserProfileImage();
 
     if(!this.navDrawerService.getState()) {
       this.navDrawerService.setIsOpen(!this.navDrawerService.getState());
