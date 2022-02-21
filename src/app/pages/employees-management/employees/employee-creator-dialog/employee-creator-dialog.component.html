@@ -12,19 +12,15 @@
           <div class="employeeCreator__form-container">
             <mat-form-field appearance="outline" class="employeeCreator__input">
               <mat-label>First name</mat-label>
-              <input matInput [(ngModel)]="firstNameValue" placeholder="First name">
+              <input matInput [(ngModel)]="firstNameValue" (ngModelChange)="inputValueChanged()" placeholder="First name">
             </mat-form-field>
   
             <div class="margin-between"></div>
   
             <mat-form-field appearance="outline" class="employeeCreator__input">
               <mat-label>Last name</mat-label>
-              <input matInput [(ngModel)]="lastNameValue" placeholder="Last name">
+              <input matInput [(ngModel)]="lastNameValue" (ngModelChange)="inputValueChanged()" placeholder="Last name">
             </mat-form-field>
-          </div>
-
-          <div>
-            <button mat-button matStepperNext>Next</button>
           </div>
         </div>
 
@@ -35,82 +31,43 @@
           <ng-template matStepLabel>Authorization</ng-template>
           <div class="employeeCreator__twoCols">
             <div class="employeeCreator__form-container-2">
-              <mat-form-field appearance="outline" class="employeeCreator__input">
-                <mat-label>Username</mat-label>
-                <input matInput [(ngModel)]="usernameValue" placeholder="Username">
-              </mat-form-field>
-  
-              <div class="margin-between"></div>
   
               <mat-form-field appearance="outline" class="employeeCreator__input">
                 <mat-label>Password</mat-label>
-                <input matInput type="password" [(ngModel)]="passwordValue" placeholder="Password">
+                <input matInput type="password" [(ngModel)]="passwordValue" (ngModelChange)="inputValueChanged()" placeholder="Password">
               </mat-form-field>
   
               <div class="margin-between"></div>
   
               <mat-form-field appearance="outline" class="employeeCreator__input">
                 <mat-label>Repeat password</mat-label>
-                <input matInput type="password" [(ngModel)]="repeatPasswordValue" placeholder="Repeat password">
+                <input matInput type="password" [(ngModel)]="repeatPasswordValue" (ngModelChange)="inputValueChanged()" placeholder="Repeat password">
               </mat-form-field>
             </div>
   
             <div class="employeeCreator__rightSide-container">
-  
-              <mat-form-field appearance="outline" class="employeeCreator__input">
-                <mat-label>Email</mat-label>
-                <input matInput [(ngModel)]="emailValue" placeholder="Email">
-              </mat-form-field>
 
               <mat-form-field appearance="outline" class="employeeCreator__input">
-                <mat-label>Authority</mat-label>
-                <select matNativeControl required [(ngModel)]="authorityValue">
-                  <option value="root" disabled>ROOT</option>
-                  <option value="admin">Administrator</option>
-                  <option value="moderator">Moderator</option>
-                </select>
+                <mat-label>Username</mat-label>
+                <input matInput [(ngModel)]="usernameValue" (ngModelChange)="inputValueChanged()" placeholder="Username">
+              </mat-form-field>
+  
+              <div class="margin-between"></div>
+              <mat-form-field appearance="outline" class="employeeCreator__input">
+                <mat-label>Email</mat-label>
+                <input matInput [(ngModel)]="emailValue" (ngModelChange)="inputValueChanged()" placeholder="Email">
               </mat-form-field>
   
             </div>
-          </div>
-          <div>
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-button matStepperNext>Next</button>
           </div>
         </div>
       </mat-step>
 
       <mat-step>
         <ng-template matStepLabel>Preview</ng-template>
-        
-        <mat-card>
-          <mat-card-header>
-            <div mat-card-avatar>
-              <mat-icon class="profile_img-icon mat-elevation-z10">account_circle</mat-icon>
-            </div>
-            <mat-card-title>Profile preview</mat-card-title>
-            <mat-card-subtitle>If setup is not valid, click back button to fix it!</mat-card-subtitle>
-          </mat-card-header>
-          <div class="divider-accent"></div>
-          <mat-card-content>
-            <div>
-              <span class="propertyName">First name</span>: {{ firstNameValue }}
-            </div>
-            <div>
-              <span class="propertyName">Last name</span>: {{ lastNameValue }}
-            </div>
-            <div>
-              <span class="propertyName">Username</span>: {{ usernameValue }}
-            </div>
-            <div>
-              <span class="propertyName">Email</span>: {{ emailValue }}
-            </div>
-          </mat-card-content>
-        </mat-card>
-
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-        </div>
+          <div class="employeeCreator__centered">
+            <app-employee-profile-previewer [employee]="employee"></app-employee-profile-previewer>
+          </div>
       </mat-step>
 
     </mat-stepper>
@@ -122,6 +79,6 @@
 
   <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close>Cancel</button>
-    <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial>Create</button>
+    <button mat-raised-button color="primary" [disabled]="!isCreateButtonActive" (click)="handleCreate()">Create</button>
   </mat-dialog-actions>
 </div>

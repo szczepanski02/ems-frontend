@@ -2,7 +2,7 @@
 
   &__content {
     margin-top: 20px;
-    min-height: 460px;
+    min-height: 380px;
   }
 
   &__stepper {
@@ -27,6 +27,12 @@
     margin-top: 20px;
     display: flex;
     justify-content: space-between;
+  }
+
+  &__centered {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
   }
 }
 

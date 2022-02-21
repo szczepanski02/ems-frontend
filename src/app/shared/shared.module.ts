@@ -5,6 +5,7 @@ import { RemoveRolePrefixPipe } from './pipes/RemoveRolePrefix';
 import { ToastMessageComponent } from './reusable-components/toast-message/toast-message.component';
 import { DebounceClickDirective } from './helpers/debounce-click.directive';
 import { ShowIfBetweenWidthDirective } from './helpers/show-if-between-width.directive';
+import { EmployeeProfilePreviewerComponent } from './reusable-components/employee-profile-previewer/employee-profile-previewer.component';
 
 
 
@@ -13,7 +14,8 @@ import { ShowIfBetweenWidthDirective } from './helpers/show-if-between-width.dir
     RemoveRolePrefixPipe,
     ToastMessageComponent,
     DebounceClickDirective,
-    ShowIfBetweenWidthDirective
+    ShowIfBetweenWidthDirective,
+    EmployeeProfilePreviewerComponent
   ],
   imports: [
     CommonModule,
@@ -24,7 +26,8 @@ import { ShowIfBetweenWidthDirective } from './helpers/show-if-between-width.dir
     RemoveRolePrefixPipe,
     ToastMessageComponent,
     DebounceClickDirective,
-    ShowIfBetweenWidthDirective
+    ShowIfBetweenWidthDirective,
+    EmployeeProfilePreviewerComponent
   ]
 })
 export class SharedModule { }

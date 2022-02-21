@@ -1,0 +1,24 @@
+<mat-card class="previewer mat-elevation-z8">
+  <div class="previewer__bg"></div>
+  <div class="previewer__header">
+    <img src="../../../../assets/images/default_profile.png" class="mat-elevation-z8 profile_img" width="58px" height="58px" alt="">
+    <div class="previewer__dot"></div>
+    <div class="previewer__dot"></div>
+    <div class="previewer__dot"></div>
+  </div>
+  <div class="previewer__content">
+    <h2 class="previewer__name">{{ employee.firstName }} {{ employee.lastName }}</h2>
+    <div class="previewer__item" *ngIf="employee.role">
+      <mat-icon color="accent">badge</mat-icon>
+      <span class="previewer__item-text">{{ employee.role | removeRolePrefix }}</span>
+    </div>
+    <div class="previewer__item">
+      <mat-icon color="accent">alternate_email</mat-icon>
+      <span class="previewer__item-text">{{ employee.email }}</span>
+    </div>
+    <div class="previewer__item">
+      <mat-icon color="accent">person</mat-icon>
+      <span class="previewer__item-text">{{ employee.username }}</span>
+    </div>
+  </div>
+</mat-card>

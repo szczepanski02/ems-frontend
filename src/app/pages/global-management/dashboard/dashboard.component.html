@@ -1,3 +1,61 @@
 <div class="container">
-  Dashboard view
+  <mat-card>
+    <mat-card-header>
+      <div mat-card-avatar>
+        <mat-icon class="profile_img-icon mat-elevation-z10">description</mat-icon>
+      </div>
+      <mat-card-title >Changelog</mat-card-title>
+      <mat-card-subtitle>Updates based on heroku deploy's</mat-card-subtitle>
+    </mat-card-header>
+
+    <div class="divider-accent"></div>
+
+    <mat-card-content>
+      <div class="group">
+        <h1>1.0.1 Basic authorization</h1>
+        <p>[+] Created login page</p>
+        <p>[+] Auth service</p>
+      </div>
+      <div class="group">
+        <h1>1.0.2 Guards, toolbar, drawer</h1>
+        <p>[+] Created guard strategy for non-authorizated users and authorizated users</p>
+        <p>[+] Created toolbar with route / guard strategy impl</p>
+        <p>[+] Created mat-drawer with concept routes</p>
+        <p>[+] Auth service fixes</p>
+      </div>
+      <div class="group">
+        <h1>1.0.3 Employee service, profile page, profile image</h1>
+        <p>[+] Created employee service with basic methods</p>
+        <p>[+] Created profile page with profile img setter impl</p>
+        <p>[+] Profile img impl + image conventer service</p>
+      </div>
+      <div class="group">
+        <h1>1.0.4 Fixes for profile img impl, employee service fix, guards fixes</h1>
+        <p>[+] Changed profile img strategy from local storage, to every request getter</p>
+        <p>[+] Changed name of methods in employee service, created new storaging data, impl service fix, types</p>
+        <p>[+] Non-authorizated guard fix for login page, main guard setters changed and transported to new methods</p>
+      </div>
+      <div class="group">
+        <h1>1.0.5 Reusable & code cleaning</h1>
+        <p>[+] New interfaces</p>
+        <p>[+] Fixes for methods types</p>
+        <p>[+] Created pipe for role prefix remove</p>
+        <p>[+] Created interceptor for 403 error globaly service</p>
+      </div>
+      <div class="group">
+        <h1>1.0.6 Helpers, responsive fixes, toast messages globally component / service</h1>
+        <p>[+] Added debouce click directive and implemented it in login page component</p>
+        <p>[+] Added show between witdth directive and implemented it in toolbar component</p>
+        <p>[+] Added new reusable component - toast message and implemented it instead notifications angular material component</p>
+        <p>[+] Profile page responsive fixes</p>
+      </div>
+      <div class="group">
+        <h1>1.0.7 Employees page, pagination & filter based on API strategy, employee creator</h1>
+        <p>[+] Created employees page</p>
+        <p>[+] Created and impl custom pagination & filter based on API</p>
+        <p>[+] Employee creator with stepper and new reusable component - employee profile previewer</p>
+      </div>
+    </mat-card-content>
+
+  </mat-card>
 </div>

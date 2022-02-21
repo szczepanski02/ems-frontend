@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { ISuccessWithDataResponse } from '../interfaces/ISuccessResponse';
+import { ICreateEmployeePayload } from '../interfaces/ICreateEmployeePayload';
+import { ISuccessResponse, ISuccessWithDataResponse } from '../interfaces/ISuccessResponse';
 import { IUserFromToken } from '../interfaces/IUserFromToken';
 
 @Injectable({
@@ -49,6 +50,11 @@ export class AuthService {
     this.router.navigate(['login']);
     this.setIsLoggedIn(false);
   }
+
+  createNewEmployee(payload: ICreateEmployeePayload): Observable<ISuccessResponse> {
+    return this.http.post<ISuccessResponse>(`${this.api}/signup`, payload);
+  }
+
 }
 
 interface ISignInPayload {
