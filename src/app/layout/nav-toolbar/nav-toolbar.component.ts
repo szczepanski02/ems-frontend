@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { EmployeeService } from 'src/app/services/employee.service';
+import { EmployeeService } from 'src/app/services/employee/employee.service';
 import { NavDrawerService } from '../nav-drawer/nav-drawer.service';
 
 @Component({
@@ -22,7 +22,6 @@ export class NavToolbarComponent implements OnInit {
     this.elem = document.querySelector<HTMLElement>('.hamburger_btn');
     this.firstName = this.employeeService.getFirstname();
     this.lastName = this.employeeService.getLastname();
-    this.employeeService.setUserProfileImage();
 
     if(!this.navDrawerService.getState()) {
       this.navDrawerService.setIsOpen(!this.navDrawerService.getState());

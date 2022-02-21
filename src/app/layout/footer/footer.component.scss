@@ -4,6 +4,13 @@
   width: 100%;
   background-color: var(--darken-bg);
   height: 32px;
+
+  &__content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 5px;
+  }
 }
 
 .container {

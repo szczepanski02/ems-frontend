@@ -1,8 +1,9 @@
 import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from "@angular/router";
 import { catchError, map, Observable, of } from "rxjs";
+import { IUserFromToken } from "../interfaces/IUserFromToken";
 import { AuthService } from "../services/auth.service";
-import { EmployeeService } from "../services/employee.service";
+import { EmployeeService } from "../services/employee/employee.service";
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
@@ -15,15 +16,19 @@ export class AuthGuard implements CanActivate {
     return this.validateUserToken(authorities);
   }
 
+  employeeDataSetup(data: IUserFromToken): void {
+      this.employeeService.setRole(data.role);
+      this.employeeService.setUsername(data.username);
+      this.employeeService.setId(data._id);
+      this.employeeService.setFirstname(data.first_name);
+      this.employeeService.setLastname(data.last_name);
+  }
+
   validateUserToken(authorities: string[]): Observable<boolean> {
     return this.authService.isUserAuthenticated().pipe(
       map(response => {
         let hasAccess;
-        this.employeeService.setUsername(response.body.username);
-        this.employeeService.setRole(response.body.role);
-        this.employeeService.setId(response.body._id);
-        this.employeeService.setFirstname(response.body.first_name);
-        this.employeeService.setLastname(response.body.last_name);
+        this.employeeDataSetup(response.body);
         if(response.body.role && authorities) {
           hasAccess = authorities.includes(response.body.role);
         }
@@ -37,15 +42,11 @@ export class AuthGuard implements CanActivate {
           this.authService.setIsLoggedIn(true);
           return true;
         };
-        this.router.navigate(['login']);
         this.authService.removeSession();
-        this.authService.setIsLoggedIn(false);
         return false;
       }),
       catchError(() => {
-        this.router.navigate(['login']);
         this.authService.removeSession();
-        this.authService.setIsLoggedIn(false);
         return of(false)
       })
     );

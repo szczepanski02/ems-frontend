@@ -1,21 +1,7 @@
+@import './assets/scss/variables.scss';
 @import './assets/scss/autocomplete.scss';
 @import './assets/scss/scrollbar.scss';
-
-:root {
-  --font-grey: #c9c9c9;
-  --primary-color: #514ef8;
-  --primary-lighter-color: #cbcafd;
-  --primary-darker-color: #3735f5;
-  --darken-bg: #0e131f;
-  --accent-color: #fe9438;
-  --accent-lighter-color: #ffdfc3;
-  --accent-darker-color: #fe7724;
-
-  // defined in theme.scss
-  // --text-primary-color: #{$light-primary-text};
-  // --text-primary-lighter-color: #{$dark-primary-text};
-  // --text-primary-darker-color: #{$light-primary-text};
-}
+@import './assets/scss/tables.scss';
 
 body {
   background-color: #131929;
@@ -30,7 +16,7 @@ body {
   margin: 0 auto;
   padding: 15px;
   box-sizing: border-box;
-  margin-top: 40px;
+  margin-top: 20px;
 }
 
 .divider-accent {
@@ -48,6 +34,14 @@ body {
   border-radius: 50%;
 }
 
-mat-card {
-  box-shadow: 0px 0px 24px 0px rgba(19, 19, 29, 0.83) !important;
+.profile_img-icon {
+  border-radius: 50%;
+  font-size: 46px;
+  height: 46px;
+  width: 46px;
+}
+
+.textIcon-btn {
+  display: flex;
+  align-items: center;
 }

@@ -6,6 +6,10 @@ mat-drawer {
   top: 64px;
   border: 0;
   padding: 0;
+  @media(max-width: 600px) {
+    top: 48px;
+    height: calc(100vh - 80px);
+  }
 }
 
 mat-drawer-container {

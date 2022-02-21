@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ISuccessWithDataResponse } from '../interfaces/ISuccessResponse';
@@ -14,7 +15,7 @@ export class AuthService {
 
   private isLoggedIn: Subject<boolean> = new BehaviorSubject<boolean>(false);
 
-  constructor(private readonly http: HttpClient) {}
+  constructor(private readonly http: HttpClient, private router: Router) {}
 
   signIn(payload: ISignInPayload): Observable<ITokenResponse> {
     return this.http.post<ITokenResponse>(`${this.api}/signin`, payload);
@@ -45,6 +46,7 @@ export class AuthService {
 
   removeSession(): void {
     localStorage.removeItem('access_token');
+    this.router.navigate(['login']);
     this.setIsLoggedIn(false);
   }
 }

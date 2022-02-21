@@ -17,7 +17,7 @@
       </mat-card-content>
 
       <mat-card-footer>
-        <button mat-raised-button color="primary" [disabled]="!isFormValid" (click)="signIn()">Sign in</button>
+        <button mat-raised-button color="primary" appDebounceClick [disabled]="!isFormValid" (debounceClick)="signIn()">Sign in</button>
         <button mat-raised-button color="accent">Need help</button>
       </mat-card-footer>
 

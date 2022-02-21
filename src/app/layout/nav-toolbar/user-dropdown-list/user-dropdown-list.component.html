@@ -1,5 +1,5 @@
 <button mat-button aria-label="Account management" [matMenuTriggerFor]="menu">
-  <span class="btn__username">{{ firstName }} {{ lastName }}</span>
+  <span class="btn__username" [showIfWidthBetween]="[900,10000]">{{ firstName }} {{ lastName }}</span>
   <img [src]="profileImg" *ngIf="profileImg" width="42px" height="42px" class="profile_img mat-elevation-z10" alt="" />
 </button>
 <mat-menu #menu="matMenu" xPosition="before" class="collaping-menu">

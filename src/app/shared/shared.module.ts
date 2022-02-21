@@ -1,21 +1,30 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NotificationsComponent } from './reusable-components/notifications/notifications.component';
 import { MaterialModule } from '../ng-material.module';
+import { RemoveRolePrefixPipe } from './pipes/RemoveRolePrefix';
+import { ToastMessageComponent } from './reusable-components/toast-message/toast-message.component';
+import { DebounceClickDirective } from './helpers/debounce-click.directive';
+import { ShowIfBetweenWidthDirective } from './helpers/show-if-between-width.directive';
 
 
 
 @NgModule({
   declarations: [
-    NotificationsComponent
+    RemoveRolePrefixPipe,
+    ToastMessageComponent,
+    DebounceClickDirective,
+    ShowIfBetweenWidthDirective
   ],
   imports: [
     CommonModule,
     MaterialModule
   ],
   exports: [
-    NotificationsComponent,
-    MaterialModule
+    MaterialModule,
+    RemoveRolePrefixPipe,
+    ToastMessageComponent,
+    DebounceClickDirective,
+    ShowIfBetweenWidthDirective
   ]
 })
 export class SharedModule { }

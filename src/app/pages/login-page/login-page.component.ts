@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { notificationType } from 'src/app/constants/NotificationType';
-import { IErrorResponse } from 'src/app/interfaces/IErrorResponse';
 import { AuthService, ITokenResponse } from 'src/app/services/auth.service';
-import { NotificationsService } from 'src/app/shared/reusable-components/notifications/notifications.service';
+import { ToastMessageService } from 'src/app/shared/reusable-components/toast-message/toast-message.service';
+import { toastMessageType } from 'src/app/shared/constants/toastMessageType';
 
 @Component({
   selector: 'app-login-page',
@@ -19,7 +18,7 @@ export class LoginPageComponent implements OnInit {
   constructor(
     private router: Router,
     private authService: AuthService,
-    private notificationsService: NotificationsService
+    private toastMessageService: ToastMessageService
   ) { }
 
   ngOnInit(): void {
@@ -34,25 +33,17 @@ export class LoginPageComponent implements OnInit {
 
   signIn(): void {
     const { usernameValue, passwordValue } = this;
-    this.authService.signIn({ username: usernameValue, password: passwordValue }).subscribe({
-      next: data => this.authenticationSuccess(data),
-      error: res => this.authenticationFailed(res)
-    });
+    this.authService.signIn({ username: usernameValue, password: passwordValue }).subscribe(
+      data => this.authenticationSuccess(data)
+    ); // error is catching in HttpUnauthorizatedInterceptor
   }
 
   authenticationSuccess(response: ITokenResponse): void {
     this.authService.setSession(response.body.token);
     this.router.navigate(['/']);
     setTimeout(() => {
-      this.notificationsService.setNotification('Logged in', notificationType.INFO);
+      this.toastMessageService.setMessage('Authorization', 'Logged in', toastMessageType.INFO, 5);
     }, 200);
-  }
-
-  authenticationFailed(exception: IErrorResponse): void {
-    this.notificationsService.setNotification(exception.error.log, notificationType.ERROR);
-    this.usernameValue = '';
-    this.passwordValue = '';
-    this.isFormValid = false;
   }
 
 }

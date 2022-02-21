@@ -1,0 +1,35 @@
+.employeeCreator {
+
+  &__content {
+    margin-top: 20px;
+    min-height: 460px;
+  }
+
+  &__stepper {
+    background-color: transparent;
+  }
+
+  &__form-container {
+    display: flex;
+    margin-top: 20px;
+  }
+
+  &__form-container-2 {
+    display: block;
+    width: 50%;
+  }
+
+  &__input {
+    width: 240px;
+  }
+
+  &__twoCols {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.propertyName {
+  color: var(--primary-color);
+}

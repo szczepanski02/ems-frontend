@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoggedOutAuthGuard } from './guards/auth-logged-out.guard';
 import { AuthGuard } from './guards/auth.guard';
+import { NonAuthorizatedGuard } from './guards/non-authorizated.guard';
 
 const routes: Routes = [
   {
     path: 'login',
-    canActivate: [LoggedOutAuthGuard],
+    canActivate: [NonAuthorizatedGuard],
     loadChildren: () => import('./pages/login-page/login-page.module').then(m => m.LoginPageModule)
   },
   {
@@ -26,6 +26,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes, {onSameUrlNavigation: "reload"})],
   exports: [RouterModule],
-  providers: [AuthGuard, LoggedOutAuthGuard]
+  providers: [AuthGuard, NonAuthorizatedGuard]
 })
 export class AppRoutingModule { }

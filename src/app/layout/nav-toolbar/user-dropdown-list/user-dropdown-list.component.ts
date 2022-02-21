@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { notificationType } from 'src/app/constants/NotificationType';
 import { AuthService } from 'src/app/services/auth.service';
-import { EmployeeService } from 'src/app/services/employee.service';
+import { EmployeeService } from 'src/app/services/employee/employee.service';
 import { ImageConventerService } from 'src/app/services/image-conventer.service';
-import { NotificationsService } from 'src/app/shared/reusable-components/notifications/notifications.service';
+import { ToastMessageService } from 'src/app/shared/reusable-components/toast-message/toast-message.service';
+import { toastMessageType } from 'src/app/shared/constants/toastMessageType';
 
 @Component({
   selector: 'app-user-dropdown-list',
@@ -22,7 +22,7 @@ export class UserDropdownListComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private notificationsService: NotificationsService,
+    private toastMessageService: ToastMessageService,
     private employeeService: EmployeeService,
     private imageConventerService: ImageConventerService,
   ) { }
@@ -42,7 +42,6 @@ export class UserDropdownListComponent implements OnInit {
   
   handleLogout(): void {
     this.authService.removeSession();
-    this.router.navigate(['/login']);
-    this.notificationsService.setNotification("You has been logged out", notificationType.WARNING);
+    this.toastMessageService.setMessage('Authorization', 'You has been logged out', toastMessageType.WARN, 5);
   }
 }

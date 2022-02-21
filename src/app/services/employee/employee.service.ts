@@ -1,17 +1,17 @@
 import { HttpClient, HttpEvent } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
+import { authorities } from 'src/app/shared/constants/authorities';
 import { environment } from 'src/environments/environment.prod';
-import { IAuthorizatedEmployee } from '../interfaces/IAuthorizatedEmployee';
+import { IAuthorizatedEmployee } from '../../interfaces/IAuthorizatedEmployee';
+import { ISuccessResponse } from '../../interfaces/ISuccessResponse';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmployeeService {
 
-  private api = environment.apiUrl;
-
-  private userProfileImage: Subject<Blob | null> = new Subject<Blob | null>();
+  private api = `${environment.apiUrl}/employee`;
 
   private authorizatedEmployee: IAuthorizatedEmployee = {};
 
@@ -33,7 +33,7 @@ export class EmployeeService {
     return this.authorizatedEmployee.username;
   }
 
-  setRole(state: string): void {
+  setRole(state: authorities): void {
     this.authorizatedEmployee.role = state;
   }
 
@@ -57,27 +57,29 @@ export class EmployeeService {
     return this.authorizatedEmployee.lastName;
   }
 
-
   getUserProfileImg(): Observable<Blob | null> {
-    return this.userProfileImage;
-  }
-
-  setUserProfileImage(): void  {
-    this.http.get(`${this.api}/employee_profile_img`, { responseType: 'blob' }).subscribe(
-      response => {
-        this.userProfileImage.next(response);
-      }
-    )
+    return this.http.get(`${this.api}_profile_img`, { responseType: 'blob' });
   }
 
   uploadProfileImg(file: File): Observable<HttpEvent<any>> {
     const formData = new FormData();
     formData.append('image', file);
 
-    return this.http.post(`${this.api}/employee_profile_img`, formData, {
+    return this.http.post(`${this.api}_profile_img`, formData, {
       reportProgress: true,
       observe: 'events'
     });
   }
 
+  changeEmployeePassword(payload: IPasswordChangePayload): Observable<ISuccessResponse> {
+    return this.http.post<ISuccessResponse>(`${this.api}_profile/change_password`, payload);
+  }
+
+}
+
+
+interface IPasswordChangePayload {
+  password: string;
+  newPassword: string;
+  newPasswordRepeat: string;
 }

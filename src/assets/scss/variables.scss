@@ -1,0 +1,19 @@
+:root {
+  --font-grey: #c9c9c9;
+  --primary-color: #514ef8;
+  --primary-lighter-color: #cbcafd;
+  --primary-darker-color: #3735f5;
+  --darken-bg: #0f1522;
+  --accent-color: #fe9438;
+  --accent-lighter-color: #ffdfc3;
+  --accent-darker-color: #fe7724;
+  --error: #ff0000;
+  --warn: #FFC107;
+
+  --border-radius: 5px;
+
+  // defined in theme.scss
+  // --text-primary-color: #{$light-primary-text};
+  // --text-primary-lighter-color: #{$dark-primary-text};
+  // --text-primary-darker-color: #{$light-primary-text};
+}

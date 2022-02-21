@@ -1,7 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from './services/auth.service';
+import { WindowSizeService } from './services/window-size.service';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,11 @@ export class AppComponent implements OnInit, OnDestroy {
   isLoggedInSubscription?: Subscription;
   isLoggedIn = false;
 
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private windowSizeService: WindowSizeService
+  ) {}
 
   ngOnInit(): void {
     this.router.events.subscribe(event => {
@@ -35,6 +40,11 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.isLoggedInSubscription?.unsubscribe();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onWindowResized(event: any) {
+    this.windowSizeService.resized({ width: event.target.innerWidth, height: event.target.innerHeight });
   }
 
 }

@@ -1,6 +1,7 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { MatDrawerMode, MatSidenav } from '@angular/material/sidenav';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { MatDrawer, MatDrawerMode, MatSidenav } from '@angular/material/sidenav';
+import { Subscription } from 'rxjs';
+import { WindowSizeService } from 'src/app/services/window-size.service';
 import { NavDrawerService } from './nav-drawer.service';
 
 @Component({
@@ -8,30 +9,38 @@ import { NavDrawerService } from './nav-drawer.service';
   templateUrl: './nav-drawer.component.html',
   styleUrls: ['./nav-drawer.component.scss']
 })
-export class NavDrawerComponent implements OnInit, AfterViewInit {
+export class NavDrawerComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  @ViewChild(MatSidenav) sidenav!: MatSidenav;
+  @ViewChild(MatDrawer) drawer!: MatDrawer;
   isOpen = true;
-  drawerMode: MatDrawerMode = "side";
+  drawerMode: MatDrawerMode = 'side';
+  drawerSubscription?: Subscription;
+  windowSizeSubscription?: Subscription;
 
   constructor(
     private navDrawerService: NavDrawerService,
-    private observer: BreakpointObserver
+    private windowSizeService: WindowSizeService
   ) { }
 
   ngOnInit(): void {
     this.navDrawerService.getIsOpen().subscribe(state => {
       this.isOpen = state;
     });
-  }
-
-  ngAfterViewInit(): void {
-    this.observer.observe(['(max-width: 768px)']).subscribe((res) => {
-      if (res.matches) {
-        this.drawerMode = "over";
+    this.windowSizeService.getSize().subscribe(state => {
+      if(state.width > 768) {
+        this.drawerMode = 'side';
       } else {
-        this.drawerMode = "side";
+        this.drawerMode = 'over';
       }
     });
   }
+
+  ngAfterViewInit(): void {
+  }
+
+  ngOnDestroy(): void {
+    this.windowSizeSubscription?.unsubscribe();
+    this.drawerSubscription?.unsubscribe();
+  }
+
 }

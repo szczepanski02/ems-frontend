@@ -1,3 +1,92 @@
 <div class="container">
-  <p>employees works!</p>
+  <mat-card>
+
+    <mat-card-header>
+      <div mat-card-avatar>
+        <mat-icon class="profile_img-icon mat-elevation-z10">description</mat-icon>
+      </div>
+      <mat-card-title >Employees</mat-card-title>
+      <mat-card-subtitle>Click at employee to edit</mat-card-subtitle>
+    </mat-card-header>
+    <div class="divider-accent"></div>
+
+    <div class="action-bar">
+
+      <div class="action-bar__search-container">
+        <mat-form-field appearance="outline" class="action-bar__search-input">
+          <mat-label>Type searching value</mat-label>
+          <input matInput placeholder="Type searching value" [(ngModel)]="searchingValue" (ngModelChange)="searchingValueChange()">
+          <button *ngIf="searchingValue" matSuffix mat-icon-button aria-label="Clear" (click)="searchingValue=''">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill" class="action-bar__search-by">
+          <mat-label>Search by</mat-label>
+          <mat-select [(ngModel)]="searchByValue">
+            <mat-option value="username">Username</mat-option>
+            <mat-option value="email" disabled>Email</mat-option>
+            <mat-option value="role">Role</mat-option>
+            <mat-option value="first_name">First name</mat-option>
+            <mat-option value="last_name">Last name</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="action-bar__action-btns">
+        <button mat-raised-button color="primary" (click)="openEmployeeCreator()" class="textIcon-btn">
+          <mat-icon class="icon-xl">add</mat-icon>
+          <span>Create</span>
+        </button>
+        <div class="margin-between"></div>
+        <button mat-raised-button color="primary" class="textIcon-btn">
+          <mat-icon class="icon-xl">admin_panel_settings</mat-icon>
+          <span>Authorities</span>
+        </button>
+      </div>
+
+    </div>
+
+    <mat-card-content>
+      <div class="table-container">
+        <table mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8 table-xl">
+
+          <ng-container matColumnDef="username">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Username</th>
+            <td mat-cell *matCellDef="let element">{{ element.username }}</td>
+          </ng-container>
+        
+          <ng-container matColumnDef="firstName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>First name</th>
+            <td mat-cell *matCellDef="let element">{{ element.first_name }}</td>
+          </ng-container>
+        
+          <ng-container matColumnDef="lastName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Last name</th>
+            <td mat-cell *matCellDef="let element">{{ element.last_name }}</td>
+          </ng-container>
+        
+          <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+            <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+          </ng-container>
+  
+          <ng-container matColumnDef="isActive">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Is active</th>
+            <td mat-cell *matCellDef="let element">{{ element.isActive }}</td>
+          </ng-container>
+  
+          <ng-container matColumnDef="role">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Role</th>
+            <td mat-cell *matCellDef="let element">{{ element.role | removeRolePrefix }}</td>
+          </ng-container>
+        
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        </table>
+      </div>
+      <mat-paginator #paginator [pageSizeOptions]="[5, 10, 20]" pageSize="10" (page)="paginatorSetupChange($event)" showFirstLastButtons aria-label="Select page of periodic elements"></mat-paginator>
+    </mat-card-content>
+  </mat-card>
 </div>

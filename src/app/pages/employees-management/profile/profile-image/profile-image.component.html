@@ -1,0 +1,8 @@
+<mat-card-title>Profile image</mat-card-title>
+<mat-card-subtitle>Setup your profile image</mat-card-subtitle>
+<mat-divider></mat-divider>
+
+<mat-card-content>
+  <input class="form-control" type="file" id="file" class="inputfile"  (change)="onChange($event)">
+  <button [disabled]="!fileSenderButtonIsActive" mat-raised-button color="primary" (click)="beforeUploadAntyErrorValidator()">Upload</button>
+</mat-card-content>

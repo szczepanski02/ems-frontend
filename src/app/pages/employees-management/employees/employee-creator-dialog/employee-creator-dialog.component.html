@@ -1,0 +1,127 @@
+<div class="employeeCreator">
+  <h2 mat-dialog-title>Employee creator</h2>
+  <div class="divider-accent"></div>
+
+  <mat-dialog-content [showIfWidthBetween]="[900,10000]" class="employeeCreator__content">
+    <mat-stepper linear #stepper class="employeeCreator__stepper">
+
+      <mat-step>
+        <div class="employeeCreator__step">
+          <ng-template matStepLabel>Base data</ng-template>
+
+          <div class="employeeCreator__form-container">
+            <mat-form-field appearance="outline" class="employeeCreator__input">
+              <mat-label>First name</mat-label>
+              <input matInput [(ngModel)]="firstNameValue" placeholder="First name">
+            </mat-form-field>
+  
+            <div class="margin-between"></div>
+  
+            <mat-form-field appearance="outline" class="employeeCreator__input">
+              <mat-label>Last name</mat-label>
+              <input matInput [(ngModel)]="lastNameValue" placeholder="Last name">
+            </mat-form-field>
+          </div>
+
+          <div>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </div>
+
+      </mat-step>
+
+      <mat-step>
+        <div class="employeeCreator__step">
+          <ng-template matStepLabel>Authorization</ng-template>
+          <div class="employeeCreator__twoCols">
+            <div class="employeeCreator__form-container-2">
+              <mat-form-field appearance="outline" class="employeeCreator__input">
+                <mat-label>Username</mat-label>
+                <input matInput [(ngModel)]="usernameValue" placeholder="Username">
+              </mat-form-field>
+  
+              <div class="margin-between"></div>
+  
+              <mat-form-field appearance="outline" class="employeeCreator__input">
+                <mat-label>Password</mat-label>
+                <input matInput type="password" [(ngModel)]="passwordValue" placeholder="Password">
+              </mat-form-field>
+  
+              <div class="margin-between"></div>
+  
+              <mat-form-field appearance="outline" class="employeeCreator__input">
+                <mat-label>Repeat password</mat-label>
+                <input matInput type="password" [(ngModel)]="repeatPasswordValue" placeholder="Repeat password">
+              </mat-form-field>
+            </div>
+  
+            <div class="employeeCreator__rightSide-container">
+  
+              <mat-form-field appearance="outline" class="employeeCreator__input">
+                <mat-label>Email</mat-label>
+                <input matInput [(ngModel)]="emailValue" placeholder="Email">
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="employeeCreator__input">
+                <mat-label>Authority</mat-label>
+                <select matNativeControl required [(ngModel)]="authorityValue">
+                  <option value="root" disabled>ROOT</option>
+                  <option value="admin">Administrator</option>
+                  <option value="moderator">Moderator</option>
+                </select>
+              </mat-form-field>
+  
+            </div>
+          </div>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </div>
+      </mat-step>
+
+      <mat-step>
+        <ng-template matStepLabel>Preview</ng-template>
+        
+        <mat-card>
+          <mat-card-header>
+            <div mat-card-avatar>
+              <mat-icon class="profile_img-icon mat-elevation-z10">account_circle</mat-icon>
+            </div>
+            <mat-card-title>Profile preview</mat-card-title>
+            <mat-card-subtitle>If setup is not valid, click back button to fix it!</mat-card-subtitle>
+          </mat-card-header>
+          <div class="divider-accent"></div>
+          <mat-card-content>
+            <div>
+              <span class="propertyName">First name</span>: {{ firstNameValue }}
+            </div>
+            <div>
+              <span class="propertyName">Last name</span>: {{ lastNameValue }}
+            </div>
+            <div>
+              <span class="propertyName">Username</span>: {{ usernameValue }}
+            </div>
+            <div>
+              <span class="propertyName">Email</span>: {{ emailValue }}
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+        </div>
+      </mat-step>
+
+    </mat-stepper>
+  </mat-dialog-content>
+
+  <mat-dialog-content [showIfWidthBetween]="[100,900]" class="employeeCreator__content">
+    <p>This view is allowed only on desktop devices</p>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial>Create</button>
+  </mat-dialog-actions>
+</div>

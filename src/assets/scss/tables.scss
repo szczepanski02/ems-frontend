@@ -1,0 +1,13 @@
+.table-container {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  border-radius: var(--border-radius);
+}
+
+table.table-xl {
+  min-width: 750px;
+  width: 100%;
+  height: 100%;
+  border-collapse: separate;
+}

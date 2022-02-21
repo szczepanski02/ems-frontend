@@ -1,4 +1,4 @@
-import { authorities } from "src/app/constants/authorities";
+import { authorities } from "src/app/shared/constants/authorities";
 
 export const navItemList = [
 

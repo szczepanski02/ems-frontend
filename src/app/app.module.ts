@@ -6,12 +6,13 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FooterComponent } from './layout/footer/footer.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { HttpInterceptorService } from './helpers/HttpInterceptorService';
+import { HttpInterceptorService } from './inceptors/HttpInterceptorService';
 import { LoadingScreenComponent } from './components/loading-screen/loading-screen.component';
 import { SharedModule } from './shared/shared.module';
 import { NavToolbarComponent } from './layout/nav-toolbar/nav-toolbar.component';
 import { NavDrawerModule } from './layout/nav-drawer/nav-drawer.module';
 import { UserDropdownListComponent } from './layout/nav-toolbar/user-dropdown-list/user-dropdown-list.component';
+import { HttpErrorInterceptor } from './inceptors/HttpErrorInterceptor';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { UserDropdownListComponent } from './layout/nav-toolbar/user-dropdown-li
     NavDrawerModule
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true }
   ],
   bootstrap: [AppComponent],
 })
