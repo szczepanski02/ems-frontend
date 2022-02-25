@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { EmployeeService } from 'src/app/services/employee/employee.service';
+import { EmployeeProfileService } from 'src/app/services/employee/employee-profie.service';
 import { NavDrawerService } from '../nav-drawer/nav-drawer.service';
 
 @Component({
@@ -15,13 +15,13 @@ export class NavToolbarComponent implements OnInit {
 
   constructor(
     private navDrawerService: NavDrawerService,
-    private employeeService: EmployeeService
+    private employeeProfileService: EmployeeProfileService
     ) { }
 
   ngOnInit(): void {
     this.elem = document.querySelector<HTMLElement>('.hamburger_btn');
-    this.firstName = this.employeeService.getFirstname();
-    this.lastName = this.employeeService.getLastname();
+    this.firstName = this.employeeProfileService.getFirstname();
+    this.lastName = this.employeeProfileService.getLastname();
 
     if(!this.navDrawerService.getState()) {
       this.navDrawerService.setIsOpen(!this.navDrawerService.getState());

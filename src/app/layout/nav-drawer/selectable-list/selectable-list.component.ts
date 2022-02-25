@@ -1,5 +1,6 @@
+import { Authority } from './../../../shared/constants/authority';
 import { Component, OnInit } from '@angular/core';
-import { EmployeeService } from 'src/app/services/employee/employee.service';
+import { EmployeeProfileService } from 'src/app/services/employee/employee-profie.service';
 import { navItemList } from './item-list';
 
 @Component({
@@ -13,10 +14,10 @@ export class SelectableListComponent implements OnInit {
   navItems: IItemOfList[] = navItemList;
   employeeAuthority?: string;
 
-  constructor(private employeeService: EmployeeService) { }
+  constructor(private employeeProfileService: EmployeeProfileService) { }
 
   ngOnInit(): void {
-    this.employeeAuthority = this.employeeService.getRole();
+    this.employeeAuthority = this.employeeProfileService.getAuthority();
   }
 
   navCategoryFilter(categoryName: string): any {
@@ -40,5 +41,5 @@ interface IItemOfList {
   title: string;
   icon: string;
   directTo: string;
-  authorities: string[];
+  authorities: Authority[];
 }

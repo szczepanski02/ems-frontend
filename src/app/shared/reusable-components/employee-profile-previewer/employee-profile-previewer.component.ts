@@ -15,7 +15,7 @@ export class EmployeeProfilePreviewerComponent implements OnInit {
   ngOnInit(): void {
     if(!this.employee) {
       this.employee = {
-        firstName: 'unknown', lastName: 'unknown', role: undefined, email: 'unknown', username: 'unknown'
+        firstName: 'unknown', lastName: 'unknown', authority: undefined, email: 'unknown', username: 'unknown'
       }
     }
 
@@ -25,8 +25,8 @@ export class EmployeeProfilePreviewerComponent implements OnInit {
     if(!this.employee.lastName) {
       this.employee.lastName = 'unknown';
     }
-    if(!this.employee.role) {
-      this.employee.role = undefined;
+    if(!this.employee.authority) {
+      this.employee.authority = undefined;
     }
     if(!this.employee.email) {
       this.employee.email = 'unknown'

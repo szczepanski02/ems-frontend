@@ -1,9 +1,9 @@
-import { authorities } from "../shared/constants/authorities";
+import { Authority } from "../shared/constants/authority";
 
 export interface IUserFromToken {
   _id: string;
   username: string;
-  role: authorities;
-  first_name: string;
-  last_name: string;
+  authority: Authority;
+  firstName: string;
+  lastName: string;
 }

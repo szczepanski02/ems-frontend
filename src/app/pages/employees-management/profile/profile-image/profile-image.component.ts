@@ -1,10 +1,10 @@
 import { HttpEvent, HttpEventType } from '@angular/common/http';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
-import { EmployeeService } from 'src/app/services/employee/employee.service';
 import { ToastMessageService } from 'src/app/shared/reusable-components/toast-message/toast-message.service';
 import { toastMessageType } from 'src/app/shared/constants/toastMessageType';
+import { EmployeeProfileService } from 'src/app/services/employee/employee-profie.service';
 
 @Component({
   selector: 'app-profile-image',
@@ -19,7 +19,7 @@ export class ProfileImageComponent implements OnDestroy {
 
   constructor(
     private toastMessageService: ToastMessageService,
-    private employeeService: EmployeeService,
+    private employeeProfileService: EmployeeProfileService,
     private authService: AuthService
   ) { }
 
@@ -53,7 +53,7 @@ export class ProfileImageComponent implements OnDestroy {
       this.fileSenderButtonIsActive = false;
       return;
     }
-    this.uploadSubscription = this.employeeService.uploadProfileImg(this.file).subscribe((event: HttpEvent<any>) => {
+    this.uploadSubscription = this.employeeProfileService.uploadProfileImg(this.file).subscribe((event: HttpEvent<any>) => {
       switch (event.type) {
         case HttpEventType.Sent:
           this.fileSenderButtonIsActive = false;

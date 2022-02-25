@@ -8,9 +8,9 @@
   </div>
   <div class="previewer__content">
     <h2 class="previewer__name">{{ employee.firstName }} {{ employee.lastName }}</h2>
-    <div class="previewer__item" *ngIf="employee.role">
+    <div class="previewer__item" *ngIf="employee.authority">
       <mat-icon color="accent">badge</mat-icon>
-      <span class="previewer__item-text">{{ employee.role | removeRolePrefix }}</span>
+      <span class="previewer__item-text">{{ employee.authority }}</span>
     </div>
     <div class="previewer__item">
       <mat-icon color="accent">alternate_email</mat-icon>

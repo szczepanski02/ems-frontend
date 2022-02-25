@@ -16,15 +16,15 @@ export class HttpErrorInterceptor implements HttpInterceptor {
       catchError((err: HttpErrorResponse) => {
         if(err.status === 403 || err.status === 401) {
           if(this.router.url === '/login') {
-            this.toastMessageService.setMessage('Authorization', err.error.log, toastMessageType.ERROR, 5);
+            this.toastMessageService.setMessage('Authorization', err.error.message, toastMessageType.ERROR, 5);
             return of(true);
           }
           this.authService.removeSession();
           this.toastMessageService.setMessage('Authorization', 'Please sign in to continue', toastMessageType.ERROR, 5);
           return of(true)
         }
-        if(err.error.log) {
-          this.toastMessageService.setMessage('Error', err.error.log, toastMessageType.ERROR, 5);
+        if(err.error.message) {
+          this.toastMessageService.setMessage('Error', err.error.message, toastMessageType.ERROR, 5);
         }
         return of(false)
       })

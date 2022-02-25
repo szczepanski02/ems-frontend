@@ -1,10 +1,10 @@
-import { authorities } from "../shared/constants/authorities";
+import { Authority } from "../shared/constants/authority";
 
 export interface IAuthorizatedEmployee {
   id?: string;
   username?: string;
   email?: string;
-  role?: authorities;
+  authority?: Authority;
   firstName?: string;
   lastName?: string;
 }

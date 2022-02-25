@@ -1,4 +1,4 @@
-import { authorities } from "src/app/shared/constants/authorities";
+import { Authority } from "src/app/shared/constants/authority";
 
 export const navItemList = [
 
@@ -8,14 +8,14 @@ export const navItemList = [
     title: 'Dashboard',
     icon: 'home',
     directTo: '/',
-    authorities: [ authorities.ADMIN, authorities.MODERATOR, authorities.ROOT ]
+    authorities: [ Authority.ADMIN, Authority.MODERATOR, Authority.ROOT ]
   },
   {
     category: 'main',
     title: 'Helpers',
     icon: 'privacy_tip',
     directTo: 'application_management/helpers',
-    authorities: [ authorities.ADMIN, authorities.MODERATOR, authorities.ROOT ]
+    authorities: [ Authority.ADMIN, Authority.MODERATOR, Authority.ROOT ]
   },
 
   // users management
@@ -24,21 +24,21 @@ export const navItemList = [
     title: 'Users',
     icon: 'perm_identity',
     directTo: 'users_management/users',
-    authorities: [ authorities.ADMIN, authorities.MODERATOR, authorities.ROOT ]
+    authorities: [ Authority.ADMIN, Authority.MODERATOR, Authority.ROOT ]
   },
   {
     category: 'users_management',
     title: 'Edit user',
     icon: 'edit_note',
     directTo: 'users_management/edit',
-    authorities: [ authorities.ADMIN, authorities.ROOT ]
+    authorities: [ Authority.ADMIN, Authority.ROOT ]
   },
   {
     category: 'users_management',
     title: 'Contact with user',
     icon: 'alternate_email',
     directTo: 'users_management/contact_with_user',
-    authorities: [ authorities.ADMIN, authorities.MODERATOR, authorities.ROOT ]
+    authorities: [ Authority.ADMIN, Authority.MODERATOR, Authority.ROOT ]
   },
 
   // creators management
@@ -47,7 +47,7 @@ export const navItemList = [
     title: 'Verification',
     icon: 'verified_user',
     directTo: 'creator_management/verification',
-    authorities: [ authorities.ADMIN, authorities.ROOT ]
+    authorities: [ Authority.ADMIN, Authority.ROOT ]
   },
 
   // events management
@@ -56,21 +56,21 @@ export const navItemList = [
     title: 'Search',
     icon: 'event',
     directTo: 'events_management/search',
-    authorities: [ authorities.ADMIN, authorities.MODERATOR, authorities.ROOT ]
+    authorities: [ Authority.ADMIN, Authority.MODERATOR, Authority.ROOT ]
   },
   {
     category: 'events_management',
     title: 'Event configurator',
     icon: 'edit_calendar',
     directTo: 'events_management/search',
-    authorities: [ authorities.ADMIN, authorities.ROOT ]
+    authorities: [ Authority.ADMIN, Authority.ROOT ]
   },
   {
     category: 'events_management',
     title: 'Contact with creator',
     icon: 'alternate_email',
     directTo: 'events_management/contact_with_creator',
-    authorities: [ authorities.ADMIN, authorities.MODERATOR, authorities.ROOT ]
+    authorities: [ Authority.ADMIN, Authority.MODERATOR, Authority.ROOT ]
   },
 
   // payments
@@ -79,21 +79,21 @@ export const navItemList = [
     title: 'Client payments',
     icon: 'payments',
     directTo: 'payments_management/client',
-    authorities: [ authorities.ADMIN, authorities.ROOT ]
+    authorities: [ Authority.ADMIN, Authority.ROOT ]
   },
   {
     category: 'payments_management',
     title: 'Creator payments',
     icon: 'attach_money',
     directTo: 'payments_management/creator',
-    authorities: [ authorities.ADMIN, authorities.ROOT ]
+    authorities: [ Authority.ADMIN, Authority.ROOT ]
   },
   {
     category: 'payments_management',
     title: 'Event payments',
     icon: 'add_business',
     directTo: 'payments_management/event',
-    authorities: [ authorities.ADMIN, authorities.ROOT ]
+    authorities: [ Authority.ADMIN, Authority.ROOT ]
   },
 
   // employees management
@@ -102,21 +102,21 @@ export const navItemList = [
     title: 'Employees',
     icon: 'business_center',
     directTo: 'employees_management/list',
-    authorities: [ authorities.ROOT ]
+    authorities: [ Authority.ROOT ]
   },
   {
     category: 'employees_management',
     title: 'Verification requests',
     icon: 'playlist_add_check',
     directTo: 'employees_management/verification_requests',
-    authorities: [ authorities.ROOT ]
+    authorities: [ Authority.ROOT ]
   },
   {
     category: 'employees_management',
-    title: 'Authorities',
+    title: 'Authority',
     icon: 'admin_panel_settings',
-    directTo: 'employees_management/authorities',
-    authorities: [ authorities.ROOT ]
+    directTo: 'employees_management/Authority',
+    authorities: [ Authority.ROOT ]
   }
 
 ]

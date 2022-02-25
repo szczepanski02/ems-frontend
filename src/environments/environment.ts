@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://ems-backend-heroku.herokuapp.com/api'
+  apiUrl: 'https://evelto-api-heroku.herokuapp.com'
 };
 
 /*

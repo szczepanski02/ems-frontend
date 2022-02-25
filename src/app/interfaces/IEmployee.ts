@@ -1,14 +1,14 @@
-import { authorities } from "../shared/constants/authorities";
+import { Authority } from "../shared/constants/authority";
 
 export interface IEmployee {
   _id: string;
   username: string;
   email: string;
-  profile_img: string;
-  created_at: Date;
-  created_by: string;
-  role: authorities;
-  first_name: string;
-  last_name: string;
+  profileImg: string;
+  createdAt: Date;
+  createdBy: string;
+  authority: Authority;
+  firstName: string;
+  lastName: string;
   isActive: boolean;
 }

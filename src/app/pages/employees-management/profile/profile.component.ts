@@ -2,8 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { IEmployee } from 'src/app/interfaces/IEmployee';
 import { AuthService } from 'src/app/services/auth.service';
+import { EmployeeProfileService } from 'src/app/services/employee/employee-profie.service';
 import { EmployeeService } from 'src/app/services/employee/employee.service';
-import { EmployeesManagementService } from 'src/app/services/employee/employees-management.service';
 import { ImageConventerService } from 'src/app/services/image-conventer.service';
 
 @Component({
@@ -21,22 +21,22 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   constructor(
     private employeeService: EmployeeService,
-    private employeesManagementService: EmployeesManagementService,
+    private employeeProfileService: EmployeeProfileService,
     private authService: AuthService,
     private imageConventerService: ImageConventerService,
   ) {}
 
   ngOnInit(): void {
-    this.profileImgSubscription = this.employeeService.getUserProfileImg().subscribe(response => {
+    this.profileImgSubscription = this.employeeProfileService.getUserProfileImg().subscribe(response => {
       if(response) {
         this.imageConventerService.createImage(response, '../../../../assets/images/default_profile.png')
           .then(img => this.profileImg = img);
       }
       this.profileImg = '../../../../assets/images/default_profile.png';
     });
-    const emplId = this.employeeService.getId();
+    const emplId = this.employeeProfileService.getId();
     if(emplId) {
-      this.employeeSubscription = this.employeesManagementService.getEmployee(emplId).subscribe({
+      this.employeeSubscription = this.employeeService.getEmployee(emplId).subscribe({
         next: response => {
           this.dataLoaded = true;
           this.employeeData = response.body;

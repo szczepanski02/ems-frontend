@@ -1,3 +1,4 @@
+import { ISuccessResponse } from 'src/app/interfaces/ISuccessResponse';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService, ITokenResponse } from 'src/app/services/auth.service';
@@ -38,8 +39,9 @@ export class LoginPageComponent implements OnInit {
     ); // error is catching in HttpUnauthorizatedInterceptor
   }
 
-  authenticationSuccess(response: ITokenResponse): void {
-    this.authService.setSession(response.body.token);
+  authenticationSuccess(response: ISuccessResponse<ITokenResponse>): void {
+    console.log(response);
+    this.authService.setSession(response.body.access_token);
     this.router.navigate(['/']);
     setTimeout(() => {
       this.toastMessageService.setMessage('Authorization', 'Logged in', toastMessageType.INFO, 5);

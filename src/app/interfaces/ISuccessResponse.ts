@@ -1,9 +1,4 @@
-export interface ISuccessResponse {
-  log: string;
-  code: string;
-}
-
-export interface ISuccessWithDataResponse<T> {
-  status: string;
+export interface ISuccessResponse<T> {
+  status: number;
   body: T;
 }

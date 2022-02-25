@@ -7,8 +7,3 @@ export interface IPageableList<T> {
   filterBy: string;
   filterValue: string;
 }
-
-export interface IResPageableList<T> {
-  status: number;
-  responseObject: IPageableList<T>;
-}

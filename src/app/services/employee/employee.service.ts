@@ -1,9 +1,11 @@
-import { HttpClient, HttpEvent } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { authorities } from 'src/app/shared/constants/authorities';
-import { environment } from 'src/environments/environment.prod';
-import { IAuthorizatedEmployee } from '../../interfaces/IAuthorizatedEmployee';
+import { ICreateEmployeePayload } from 'src/app/interfaces/ICreateEmployeePayload';
+import { IEmployee } from 'src/app/interfaces/IEmployee';
+import { IPageableList } from 'src/app/interfaces/IResPageableList';
+import { ITableEmployee } from 'src/app/interfaces/ITableEmployee';
+import { environment } from 'src/environments/environment';
 import { ISuccessResponse } from '../../interfaces/ISuccessResponse';
 
 @Injectable({
@@ -13,73 +15,26 @@ export class EmployeeService {
 
   private api = `${environment.apiUrl}/employee`;
 
-  private authorizatedEmployee: IAuthorizatedEmployee = {};
-
   constructor(private http: HttpClient) { }
-  
-  setId(state: string): void {
-    this.authorizatedEmployee.id = state;
+
+  createNewEmployee(payload: ICreateEmployeePayload): Observable<ISuccessResponse<string>> {
+    return this.http.post<ISuccessResponse<string>>(`${this.api}/create`, payload);
   }
 
-  getId(): string | undefined {
-    return this.authorizatedEmployee.id;
+  getEmployee(id: string | undefined): Observable<ISuccessResponse<IEmployee>> {
+    return this.http.get<ISuccessResponse<IEmployee>>(`${this.api}/${id}`);
   }
 
-  setUsername(state: string): void {
-    this.authorizatedEmployee.username = state;
+  getAllEmployees(page: number, limit: number, filterBy: string, filterValue: string): Observable<ISuccessResponse<IPageableList<ITableEmployee>>> {
+    if(filterBy && filterValue) {
+      if(filterBy === 'authority') {
+        filterValue = `${filterValue}`;
+      }
+      return this.http.get<ISuccessResponse<IPageableList<ITableEmployee>>>(
+        `${this.api}?page=${page}&limit=${limit}&filterBy=${filterBy}&filterValue=${filterValue}`
+      );
+    }
+    return this.http.get<ISuccessResponse<IPageableList<ITableEmployee>>>(`${this.api}?page=${page}&limit=${limit}`);
   }
 
-  getUsername(): string | undefined {
-    return this.authorizatedEmployee.username;
-  }
-
-  setRole(state: authorities): void {
-    this.authorizatedEmployee.role = state;
-  }
-
-  getRole(): string | undefined {
-    return this.authorizatedEmployee.role;
-  }
-
-  setFirstname(state: string): void {
-    this.authorizatedEmployee.firstName = state;
-  }
-
-  getFirstname(): string | undefined {
-    return this.authorizatedEmployee.firstName;
-  }
-
-  setLastname(state: string): void {
-    this.authorizatedEmployee.lastName = state;
-  }
-
-  getLastname(): string | undefined {
-    return this.authorizatedEmployee.lastName;
-  }
-
-  getUserProfileImg(): Observable<Blob | null> {
-    return this.http.get(`${this.api}_profile_img`, { responseType: 'blob' });
-  }
-
-  uploadProfileImg(file: File): Observable<HttpEvent<any>> {
-    const formData = new FormData();
-    formData.append('image', file);
-
-    return this.http.post(`${this.api}_profile_img`, formData, {
-      reportProgress: true,
-      observe: 'events'
-    });
-  }
-
-  changeEmployeePassword(payload: IPasswordChangePayload): Observable<ISuccessResponse> {
-    return this.http.post<ISuccessResponse>(`${this.api}_profile/change_password`, payload);
-  }
-
-}
-
-
-interface IPasswordChangePayload {
-  password: string;
-  newPassword: string;
-  newPasswordRepeat: string;
 }

@@ -1,15 +1,16 @@
+import { ISuccessResponse } from 'src/app/interfaces/ISuccessResponse';
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { debounceTime, Subject, Subscription } from 'rxjs';
-import { IResPageableList } from 'src/app/interfaces/IResPageableList';
 import { ITableEmployee } from 'src/app/interfaces/ITableEmployee';
-import { EmployeesManagementService } from 'src/app/services/employee/employees-management.service';
 import { ToastMessageService } from 'src/app/shared/reusable-components/toast-message/toast-message.service';
 import { toastMessageType } from 'src/app/shared/constants/toastMessageType';
 import { MatDialog } from '@angular/material/dialog';
 import { EmployeeCreatorDialogComponent } from './employee-creator-dialog/employee-creator-dialog.component';
+import { EmployeeService } from 'src/app/services/employee/employee.service';
+import { IPageableList } from 'src/app/interfaces/IResPageableList';
 
 @Component({
   selector: 'app-employees',
@@ -19,7 +20,7 @@ import { EmployeeCreatorDialogComponent } from './employee-creator-dialog/employ
 export class EmployeesComponent implements OnInit, OnDestroy, AfterViewInit {
 
   dataSource = new MatTableDataSource<ITableEmployee>();
-  displayedColumns: string[] = ['username', 'firstName', 'lastName', 'email', 'isActive', 'role'];
+  displayedColumns: string[] = ['username', 'firstName', 'lastName', 'email', 'isActive', 'authority'];
   pageIndex: number = 1;
   pageSize: number = 10;
 
@@ -33,7 +34,7 @@ export class EmployeesComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(
-    private employeesManagementService: EmployeesManagementService,
+    private employeeService: EmployeeService,
     private toastMessageService: ToastMessageService,
     public dialog: MatDialog
   ) {
@@ -65,13 +66,13 @@ export class EmployeesComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   loadData(currentPageIndex: number, currentPageSize: number, filterBy = 'username', filterValue = '' ): void {
-    this.dataSubscription = this.employeesManagementService.getAllEmployees(currentPageIndex, currentPageSize, filterBy, filterValue).subscribe({
-      next: (response: IResPageableList<ITableEmployee>) => {
-        this.dataSource.data = response.responseObject.data;
+    this.dataSubscription = this.employeeService.getAllEmployees(currentPageIndex, currentPageSize, filterBy, filterValue).subscribe({
+      next: (response: ISuccessResponse<IPageableList<ITableEmployee>>) => {
+        this.dataSource.data = response.body.data;
         setTimeout(() => {
           this.paginator.pageIndex = currentPageIndex - 1;
           this.paginator.pageSize = currentPageSize;
-          this.paginator.length = response.responseObject.totalItems;
+          this.paginator.length = response.body.totalItems;
         });
       },
       error: () => {

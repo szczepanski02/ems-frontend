@@ -3,8 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { ICreateEmployeePayload } from '../interfaces/ICreateEmployeePayload';
-import { ISuccessResponse, ISuccessWithDataResponse } from '../interfaces/ISuccessResponse';
+import { ISuccessResponse } from '../interfaces/ISuccessResponse';
 import { IUserFromToken } from '../interfaces/IUserFromToken';
 
 @Injectable({
@@ -18,12 +17,12 @@ export class AuthService {
 
   constructor(private readonly http: HttpClient, private router: Router) {}
 
-  signIn(payload: ISignInPayload): Observable<ITokenResponse> {
-    return this.http.post<ITokenResponse>(`${this.api}/signin`, payload);
+  signIn(payload: ISignInPayload): Observable<ISuccessResponse<ITokenResponse>> {
+    return this.http.post<ISuccessResponse<ITokenResponse>>(`${this.api}/signin`, payload);
   }
 
-  isUserAuthenticated(): Observable<ISuccessWithDataResponse<IUserFromToken>> {
-    return this.http.get<ISuccessWithDataResponse<IUserFromToken>>(`${this.api}/isAuthorizated`);
+  isUserAuthenticated(): Observable<ISuccessResponse<IUserFromToken>> {
+    return this.http.get<ISuccessResponse<IUserFromToken>>(`${this.api}/authorize`);
   }
 
   setIsLoggedIn(state: boolean): void {
@@ -51,10 +50,6 @@ export class AuthService {
     this.setIsLoggedIn(false);
   }
 
-  createNewEmployee(payload: ICreateEmployeePayload): Observable<ISuccessResponse> {
-    return this.http.post<ISuccessResponse>(`${this.api}/signup`, payload);
-  }
-
 }
 
 interface ISignInPayload {
@@ -63,5 +58,5 @@ interface ISignInPayload {
 }
 
 export interface ITokenResponse {
-  body: { token: string };
+  access_token: string;
 }

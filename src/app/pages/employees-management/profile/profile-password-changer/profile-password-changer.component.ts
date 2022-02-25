@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { EmployeeService } from 'src/app/services/employee/employee.service';
 import { ToastMessageService } from 'src/app/shared/reusable-components/toast-message/toast-message.service';
 import { toastMessageType } from 'src/app/shared/constants/toastMessageType';
+import { EmployeeProfileService } from 'src/app/services/employee/employee-profie.service';
 
 @Component({
   selector: 'app-profile-password-changer',
@@ -19,7 +19,7 @@ export class ProfilePasswordChangerComponent implements OnInit, OnDestroy {
   newPasswordRepeatValue = '';
 
   constructor(
-    private employeeService: EmployeeService,
+    private employeeProfileService: EmployeeProfileService,
     private toastMessageService: ToastMessageService
     ) { }
 
@@ -39,12 +39,11 @@ export class ProfilePasswordChangerComponent implements OnInit, OnDestroy {
   }
 
   handleEmployeePasswordChanger(): void {
-    this.employeePasswordChangeSubscription = this.employeeService.changeEmployeePassword({
+    this.employeePasswordChangeSubscription = this.employeeProfileService.changeEmployeePassword({
       password: this.passwordValue,
-      newPassword: this.newPasswordValue,
-      newPasswordRepeat: this.newPasswordRepeatValue,
+      newPassword: this.newPasswordValue
     }).subscribe(response => {
-        this.toastMessageService.setMessage('Password change', response.log, toastMessageType.INFO, 5);
+        this.toastMessageService.setMessage('Password change', response.body, toastMessageType.INFO, 5);
         this.passwordValue = '';
         this.newPasswordValue = '';
         this.newPasswordRepeatValue = '';

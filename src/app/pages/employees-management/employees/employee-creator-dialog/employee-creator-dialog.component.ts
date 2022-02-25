@@ -1,11 +1,11 @@
+import { EmployeeService } from 'src/app/services/employee/employee.service';
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { IAuthorizatedEmployee } from 'src/app/interfaces/IAuthorizatedEmployee';
 import { ICreateEmployeePayload } from 'src/app/interfaces/ICreateEmployeePayload';
 import { IErrorResponse } from 'src/app/interfaces/IErrorResponse';
 import { ISuccessResponse } from 'src/app/interfaces/ISuccessResponse';
-import { AuthService } from 'src/app/services/auth.service';
-import { authorities } from 'src/app/shared/constants/authorities';
+import { Authority } from 'src/app/shared/constants/authority';
 import { toastMessageType } from 'src/app/shared/constants/toastMessageType';
 import { ToastMessageService } from 'src/app/shared/reusable-components/toast-message/toast-message.service';
 
@@ -29,9 +29,9 @@ export class EmployeeCreatorDialogComponent implements OnInit {
   employeeToPost?: ICreateEmployeePayload;
 
   constructor(
-    private authService: AuthService,
     private toastMessageService: ToastMessageService,
-    private dialogRef: MatDialogRef<EmployeeCreatorDialogComponent>
+    private dialogRef: MatDialogRef<EmployeeCreatorDialogComponent>,
+    private employeeService: EmployeeService
   ) { }
 
   ngOnInit(): void {
@@ -42,7 +42,7 @@ export class EmployeeCreatorDialogComponent implements OnInit {
       firstName: this.firstNameValue,
       lastName: this.lastNameValue,
       username: this.usernameValue,
-      role: authorities.MODERATOR,
+      authority: Authority.MODERATOR,
       email: this.emailValue
     }
 
@@ -52,9 +52,9 @@ export class EmployeeCreatorDialogComponent implements OnInit {
 
   handleCreate(): void {
     if(this.employeeToPost && this.isCreateButtonActive) {
-      this.authService.createNewEmployee(this.employeeToPost).subscribe({
-        next: (response: ISuccessResponse) => this.handleSuccessResponse(response.log),
-        error: (error: IErrorResponse) => this.handleErrorResponse(error.error.log)
+      this.employeeService.createNewEmployee(this.employeeToPost).subscribe({
+        next: (response: ISuccessResponse<string>) => this.handleSuccessResponse(response.body),
+        error: (error: IErrorResponse) => this.handleErrorResponse(error.message)
       });
     }
   }

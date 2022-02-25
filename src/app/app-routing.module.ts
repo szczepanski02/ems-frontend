@@ -1,3 +1,4 @@
+import { Authority } from './shared/constants/authority';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
@@ -12,13 +13,13 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./pages/global-management/global-management.module').then(m => m.GlobalManagementModule),
-    data: { authorities: ['ROLE_MODERATOR', 'ROLE_ADMIN', 'ROLE_ROOT'] },
+    data: { authorities: [Authority.MODERATOR, Authority.ADMIN, Authority.ROOT] },
     canActivate: [AuthGuard]
   },
   {
     path: 'employees_management',
     loadChildren: () => import('./pages/employees-management/employee-management.module').then(m => m.EmployeeManagementModule),
-    data: { authorities: ['ROLE_MODERATOR', 'ROLE_ADMIN', 'ROLE_ROOT'] },
+    data: { authorities: [Authority.MODERATOR, Authority.ADMIN, Authority.ROOT] },
     canActivate: [AuthGuard]
   },
 ];
