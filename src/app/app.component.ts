@@ -7,14 +7,14 @@ import { WindowSizeService } from './services/window-size.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, OnDestroy {
   
   isLoadingSpinnerActive = false;
   isLoggedInSubscription?: Subscription;
   isLoggedIn = false;
-
+   
   constructor(
     private router: Router,
     private authService: AuthService,
@@ -48,3 +48,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
 }
+function buildRouteTransition(arg0: { stateChangeExpr: string; enter: any; leave: any; }): import("@angular/animations").AnimationMetadata {
+  throw new Error('Function not implemented.');
+}
+

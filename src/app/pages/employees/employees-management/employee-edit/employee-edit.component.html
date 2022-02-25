@@ -1,1 +1,63 @@
-<p>employee-edit works!</p>
+<div class="container">
+  <div class="row">
+    <mat-card>
+      <mat-card-header>
+        <div mat-card-avatar>
+          <mat-icon class="profile_img-icon mat-elevation-z10">edit</mat-icon>
+        </div>
+        <mat-card-title >Edit</mat-card-title>
+        <mat-card-subtitle>There you can change basics properties of employee</mat-card-subtitle>
+      </mat-card-header>
+      <div class="divider-accent"></div>
+  
+      <mat-card-content>
+        <div class="employee__form-container">
+          <mat-form-field appearance="outline" class="employee__input">
+            <mat-label>Username</mat-label>
+            <input maxlength="12" matInput placeholder="Username" [(ngModel)]="usernameValue" (ngModelChange)="employeeProfilePropertyChanged()">
+            <button *ngIf="usernameValue" matSuffix mat-icon-button aria-label="Clear" (click)="usernameValue=''">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+    
+          <mat-form-field appearance="outline" class="employee__input">
+            <mat-label>First name</mat-label>
+            <input maxlength="12" matInput placeholder="First name" [(ngModel)]="firstNameValue" (ngModelChange)="employeeProfilePropertyChanged()">
+            <button *ngIf="firstNameValue" matSuffix mat-icon-button aria-label="Clear" (click)="firstNameValue=''">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+    
+          <mat-form-field appearance="outline" class="employee__input">
+            <mat-label>Last name</mat-label>
+            <input maxlength="14" matInput placeholder="Last name" [(ngModel)]="lastNameValue" (ngModelChange)="employeeProfilePropertyChanged()">
+            <button *ngIf="lastNameValue" matSuffix mat-icon-button aria-label="Clear" (click)="lastNameValue=''">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+    
+          <mat-form-field appearance="outline" class="employee__input">
+            <mat-label>Email</mat-label>
+            <input maxlength="30" matInput placeholder="Email" [(ngModel)]="emailValue" (ngModelChange)="employeeProfilePropertyChanged()">
+            <button *ngIf="emailValue" matSuffix mat-icon-button aria-label="Clear" (click)="emailValue=''">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+        <mat-checkbox class="employee__isActive" [(ngModel)]="isActive" (ngModelChange)="employeeProfilePropertyChanged()">Is active</mat-checkbox>
+  
+      </mat-card-content>
+
+      <mat-card-footer class="employee__footer">
+        <div class="employee_left-btns">
+          <button mat-raised-button color="accent" class="employee__reset-btn" (click)="handleResetValues()">Reset</button>
+          <button mat-raised-button color="warn" (click)="handleDelete()">Delete employee</button>
+        </div>
+        <button mat-raised-button color="primary" appDebounceClick (debounceClick)="saveChanges()">Save changes</button>
+      </mat-card-footer>
+  
+    </mat-card>
+  
+    <app-employee-profile-previewer *ngIf="modifiedEmployee" [employee]="modifiedEmployee"></app-employee-profile-previewer>
+  </div>
+</div>

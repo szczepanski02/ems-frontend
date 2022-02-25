@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ICreateEmployeePayload } from 'src/app/interfaces/ICreateEmployeePayload';
 import { IEmployee } from 'src/app/interfaces/IEmployee';
+import { IEmployeeWithOptionalParams } from 'src/app/interfaces/IEmployeeWithOptionalParams';
 import { IPageableList } from 'src/app/interfaces/IResPageableList';
 import { ITableEmployee } from 'src/app/interfaces/ITableEmployee';
 import { environment } from 'src/environments/environment';
@@ -35,6 +36,22 @@ export class EmployeeService {
       );
     }
     return this.http.get<ISuccessResponse<IPageableList<ITableEmployee>>>(`${this.api}?page=${page}&limit=${limit}`);
+  }
+
+  getEmployeeByUsername(username: string): Observable<ISuccessResponse<IEmployee>> {
+    return this.http.get<ISuccessResponse<IEmployee>>(`${this.api}/username/${username}`);
+  }
+
+  getEmployeeProfileImage(id: string) {
+    return this.http.get(`${this.api}-profile/avatar/${id}`, { responseType: 'blob' });
+  }
+
+  updateEmployee(payload: IEmployeeWithOptionalParams): Observable<ISuccessResponse<string>> {
+    return this.http.put<ISuccessResponse<string>>(`${this.api}/${payload.id}`, payload);
+  }
+
+  deleteEmployee(id: string): Observable<ISuccessResponse<string>> {
+    return this.http.delete<ISuccessResponse<string>>(`${this.api}/${id}`);
   }
 
 }

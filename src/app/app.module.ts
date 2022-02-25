@@ -13,6 +13,7 @@ import { NavToolbarComponent } from './layout/nav-toolbar/nav-toolbar.component'
 import { NavDrawerModule } from './layout/nav-drawer/nav-drawer.module';
 import { UserDropdownListComponent } from './layout/nav-toolbar/user-dropdown-list/user-dropdown-list.component';
 import { HttpErrorInterceptor } from './inceptors/HttpErrorInterceptor';
+import { NgxAnimationsModule } from 'ngx-animations';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { HttpErrorInterceptor } from './inceptors/HttpErrorInterceptor';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    NgxAnimationsModule,
     SharedModule,
     NavDrawerModule
   ],

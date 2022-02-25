@@ -36,7 +36,7 @@ export class EmployeeProfileService {
     this.authorizatedEmployee.authority = state;
   }
 
-  getAuthority(): string | undefined {
+  getAuthority(): Authority | undefined {
     return this.authorizatedEmployee.authority;
   }
 

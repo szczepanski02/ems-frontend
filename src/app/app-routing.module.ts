@@ -22,10 +22,14 @@ const routes: Routes = [
     data: { authorities: [Authority.MODERATOR, Authority.ADMIN, Authority.ROOT] },
     canActivate: [AuthGuard]
   },
+  {
+    path: '**',
+    redirectTo: ''
+  }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {onSameUrlNavigation: "reload"})],
+  imports: [RouterModule.forRoot(routes, {onSameUrlNavigation: "reload" })],
   exports: [RouterModule],
   providers: [AuthGuard, NonAuthorizatedGuard]
 })

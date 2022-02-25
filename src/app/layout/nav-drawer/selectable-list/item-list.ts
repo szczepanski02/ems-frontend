@@ -102,7 +102,7 @@ export const navItemList = [
     title: 'Employees',
     icon: 'business_center',
     directTo: 'employees/management',
-    authorities: [ Authority.ROOT ]
+    authorities: [ Authority.ROOT, Authority.ADMIN ]
   },
   {
     category: 'employees_management',

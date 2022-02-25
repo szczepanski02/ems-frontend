@@ -14,16 +14,19 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<any> {
     return next.handle(req).pipe(
       catchError((err: HttpErrorResponse) => {
-        if(err.status === 403 || err.status === 401) {
+        if(err.status === 401) {
           if(this.router.url === '/login') {
             this.toastMessageService.setMessage('Authorization', err.error.message, toastMessageType.ERROR, 5);
             return of(true);
           }
-          this.authService.removeSession();
+          this.authService.removeSession(true);
           this.toastMessageService.setMessage('Authorization', 'Please sign in to continue', toastMessageType.ERROR, 5);
           return of(true)
         }
-        if(err.error.message) {
+        if(err.status === 403) {
+          this.toastMessageService.setMessage('Error', 'You are not authorized to perform this operation', toastMessageType.ERROR, 5);
+        }
+        if(err.error.message && (err.status !== 403 && err.status !== 401)) {
           this.toastMessageService.setMessage('Error', err.error.message, toastMessageType.ERROR, 5);
         }
         return of(false)

@@ -1,7 +1,7 @@
 <mat-card class="previewer mat-elevation-z8">
   <div class="previewer__bg"></div>
   <div class="previewer__header">
-    <img src="../../../../assets/images/default_profile.png" class="mat-elevation-z8 profile_img" width="58px" height="58px" alt="">
+    <img [src]="profileImg" *ngIf="profileImg" class="mat-elevation-z8 profile_img" width="58px" height="58px" alt="">
     <div class="previewer__dot"></div>
     <div class="previewer__dot"></div>
     <div class="previewer__dot"></div>
@@ -19,6 +19,14 @@
     <div class="previewer__item">
       <mat-icon color="accent">person</mat-icon>
       <span class="previewer__item-text">{{ employee.username }}</span>
+    </div>
+    <div class="previewer__item" *ngIf="employee.createdBy">
+      <mat-icon color="accent">add_circle_outline</mat-icon>
+      <span class="previewer__item-text">{{ employee.createdBy }}</span>
+    </div>
+    <div class="previewer__item" *ngIf="employee.createdAt">
+      <mat-icon color="accent">event_available</mat-icon>
+      <span class="previewer__item-text">{{ employee.createdAt | date:'mediumDate' }}</span>
     </div>
   </div>
 </mat-card>

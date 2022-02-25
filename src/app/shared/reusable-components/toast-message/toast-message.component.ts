@@ -22,9 +22,9 @@ export class ToastMessageComponent implements OnInit, OnDestroy {
   }
 
   handleNewMessage(message: IToastMessage): void {
-    if(this.messages[this.messages.length -1]?.content === message.content) {
-      return;
-    }
+    // if(this.messages[this.messages.length -1]?.content === message.content) {
+    //   return;
+    // }
     this.messages.push(message);
     this.stackScrollTo();
     setTimeout(() => {

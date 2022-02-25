@@ -37,3 +37,8 @@
 .mat-cell {
   padding: 20px 20px 20px 0;
 }
+
+.mat-row:hover .mat-cell {
+  background-color: var(--hover-background);
+  cursor: pointer;
+}

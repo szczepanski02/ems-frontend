@@ -5,7 +5,7 @@ import { ProfileImageComponent } from './profile-image/profile-image.component';
 import { ProfileComponent } from './profile.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProfileRoutingModule } from './profile-routing.module';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -13,7 +13,10 @@ import { ProfileRoutingModule } from './profile-routing.module';
   declarations: [ProfileComponent, ProfileImageComponent, ProfileIpsDetailsComponent, ProfilePasswordChangerComponent],
   imports: [
     CommonModule,
-    ProfileRoutingModule,
+    RouterModule.forChild([{
+      path: '',
+      component: ProfileComponent
+    }]),
     SharedModule
   ]
 })

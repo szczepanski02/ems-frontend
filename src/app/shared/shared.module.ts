@@ -6,6 +6,8 @@ import { ToastMessageComponent } from './reusable-components/toast-message/toast
 import { DebounceClickDirective } from './helpers/debounce-click.directive';
 import { ShowIfBetweenWidthDirective } from './helpers/show-if-between-width.directive';
 import { EmployeeProfilePreviewerComponent } from './reusable-components/employee-profile-previewer/employee-profile-previewer.component';
+import { HasAuthorityDirective } from './helpers/has-authority.directive';
+import { ConfirmationDialogComponent } from './reusable-components/confirmation-dialog/confirmation-dialog.component';
 
 
 
@@ -15,11 +17,13 @@ import { EmployeeProfilePreviewerComponent } from './reusable-components/employe
     ToastMessageComponent,
     DebounceClickDirective,
     ShowIfBetweenWidthDirective,
-    EmployeeProfilePreviewerComponent
+    EmployeeProfilePreviewerComponent,
+    HasAuthorityDirective,
+    ConfirmationDialogComponent,
   ],
   imports: [
     CommonModule,
-    MaterialModule
+    MaterialModule,
   ],
   exports: [
     MaterialModule,
@@ -27,7 +31,9 @@ import { EmployeeProfilePreviewerComponent } from './reusable-components/employe
     ToastMessageComponent,
     DebounceClickDirective,
     ShowIfBetweenWidthDirective,
-    EmployeeProfilePreviewerComponent
+    EmployeeProfilePreviewerComponent,
+    HasAuthorityDirective,
+    ConfirmationDialogComponent,
   ]
 })
 export class SharedModule { }

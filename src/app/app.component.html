@@ -4,8 +4,12 @@
     <div class="page__container">
       <app-nav-drawer>
         <div class="router__container">
-          <router-outlet *ngIf="isLoggedIn">
-          </router-outlet>
+          <div *ngIf="isLoggedIn">
+            <main>
+              <router-outlet #o="outlet">
+              </router-outlet>
+            </main>
+          </div>
         </div>
       </app-nav-drawer>
     </div>

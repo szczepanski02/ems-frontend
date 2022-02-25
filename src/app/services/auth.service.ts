@@ -44,7 +44,10 @@ export class AuthService {
     localStorage.setItem('access_token', token);
   }
 
-  removeSession(): void {
+  removeSession(redirect = false): void {
+    if(redirect) {
+      localStorage.setItem('redirectTo', this.router.url);
+    }
     localStorage.removeItem('access_token');
     this.router.navigate(['login']);
     this.setIsLoggedIn(false);
