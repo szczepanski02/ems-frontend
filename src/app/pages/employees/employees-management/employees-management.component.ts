@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { ISuccessResponse } from 'src/app/interfaces/ISuccessResponse';
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
@@ -13,11 +14,11 @@ import { EmployeeService } from 'src/app/services/employee/employee.service';
 import { IPageableList } from 'src/app/interfaces/IResPageableList';
 
 @Component({
-  selector: 'app-employees',
-  templateUrl: './employees.component.html',
-  styleUrls: ['./employees.component.scss']
+  selector: 'app-employees-management',
+  templateUrl: './employees-management.component.html',
+  styleUrls: ['./employees-management.component.scss']
 })
-export class EmployeesComponent implements OnInit, OnDestroy, AfterViewInit {
+export class EmployeesManagementComponent implements OnInit, OnDestroy, AfterViewInit {
 
   dataSource = new MatTableDataSource<ITableEmployee>();
   displayedColumns: string[] = ['username', 'firstName', 'lastName', 'email', 'isActive', 'authority'];
@@ -36,7 +37,8 @@ export class EmployeesComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(
     private employeeService: EmployeeService,
     private toastMessageService: ToastMessageService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private router: Router
   ) {
     this.filterModelChanged.pipe(debounceTime(300)).subscribe(() => {
       this.loadData(this.pageIndex, this.pageSize, this.searchByValue, this.searchingValue);
@@ -58,11 +60,7 @@ export class EmployeesComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   openEmployeeCreator() {
-    const dialogRef = this.dialog.open(EmployeeCreatorDialogComponent);
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
+    this.dialog.open(EmployeeCreatorDialogComponent);
   }
 
   loadData(currentPageIndex: number, currentPageSize: number, filterBy = 'username', filterValue = '' ): void {
@@ -89,6 +87,10 @@ export class EmployeesComponent implements OnInit, OnDestroy, AfterViewInit {
 
   searchingValueChange(): void {
     this.filterModelChanged.next(true);
+  }
+
+  handleRowClick(username: string) {
+    this.router.navigate(['/employees/management', username]);
   }
 
 }

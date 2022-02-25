@@ -17,8 +17,8 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'employees_management',
-    loadChildren: () => import('./pages/employees-management/employee-management.module').then(m => m.EmployeeManagementModule),
+    path: 'employees',
+    loadChildren: () => import('./pages/employees/employee.module').then(m => m.EmployeeModule),
     data: { authorities: [Authority.MODERATOR, Authority.ADMIN, Authority.ROOT] },
     canActivate: [AuthGuard]
   },

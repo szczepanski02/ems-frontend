@@ -40,7 +40,6 @@ export class LoginPageComponent implements OnInit {
   }
 
   authenticationSuccess(response: ISuccessResponse<ITokenResponse>): void {
-    console.log(response);
     this.authService.setSession(response.body.access_token);
     this.router.navigate(['/']);
     setTimeout(() => {

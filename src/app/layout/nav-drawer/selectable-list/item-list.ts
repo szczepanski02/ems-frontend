@@ -101,21 +101,21 @@ export const navItemList = [
     category: 'employees_management',
     title: 'Employees',
     icon: 'business_center',
-    directTo: 'employees_management/list',
+    directTo: 'employees/management',
     authorities: [ Authority.ROOT ]
   },
   {
     category: 'employees_management',
     title: 'Verification requests',
     icon: 'playlist_add_check',
-    directTo: 'employees_management/verification_requests',
+    directTo: 'employees/management/verification_requests',
     authorities: [ Authority.ROOT ]
   },
   {
     category: 'employees_management',
     title: 'Authority',
     icon: 'admin_panel_settings',
-    directTo: 'employees_management/Authority',
+    directTo: 'employees/management/authority',
     authorities: [ Authority.ROOT ]
   }
 
