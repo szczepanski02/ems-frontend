@@ -1,0 +1,14 @@
+.right-side {
+  margin-left: auto;
+}
+
+.content {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+@media(max-width: 385px) {
+  .cancel-btn {
+    display: none;
+  }
+}

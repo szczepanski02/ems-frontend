@@ -21,7 +21,7 @@ import { IPageableList } from 'src/app/interfaces/IResPageableList';
 export class EmployeesManagementComponent implements OnInit, OnDestroy, AfterViewInit {
 
   dataSource = new MatTableDataSource<ITableEmployee>();
-  displayedColumns: string[] = ['username', 'firstName', 'lastName', 'email', 'isActive', 'authority'];
+  displayedColumns: string[] = ['username', 'firstName', 'lastName', 'email', 'isActive', 'ipVerification' ,'authority'];
   pageIndex: number = 1;
   pageSize: number = 10;
 
@@ -90,7 +90,7 @@ export class EmployeesManagementComponent implements OnInit, OnDestroy, AfterVie
   }
 
   handleRowClick(username: string) {
-    this.router.navigate(['/employees/management', username]);
+    this.router.navigate(['/employees/management/edit/', username]);
   }
 
 }

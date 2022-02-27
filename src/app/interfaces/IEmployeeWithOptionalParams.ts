@@ -5,4 +5,5 @@ export interface IEmployeeWithOptionalParams extends IAuthorizatedEmployee {
   _id?: string;
   profileImg?: string;
   isActive?: boolean;
+  ipVerification?: boolean;
 }

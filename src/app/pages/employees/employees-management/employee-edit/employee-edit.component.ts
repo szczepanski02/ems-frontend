@@ -28,6 +28,7 @@ export class EmployeeEditComponent implements OnInit, OnDestroy {
   emailValue = '';
   isActive = false;
   isButtonActive = false;
+  ipVerification = false;
 
   getEmployeeSubscription?: Subscription;
   saveEmployeeSubscription?: Subscription;
@@ -71,10 +72,10 @@ export class EmployeeEditComponent implements OnInit, OnDestroy {
     this.lastNameValue = response.body.lastName;
     this.emailValue = response.body.email;
     this.isActive = response.body.isActive;
+    this.ipVerification = response.body.ipVerification;
   }
 
   employeeProfilePropertyChanged(): void {
-    console.log(this.isActive);
     this.modifiedEmployee = {
       username: this.usernameValue,
       firstName: this.firstNameValue,
@@ -84,7 +85,8 @@ export class EmployeeEditComponent implements OnInit, OnDestroy {
       createdAt: this.employee?.createdAt,
       createdBy: this.employee?.createdBy,
       isActive: this.isActive,
-      id: this.employee?._id
+      id: this.employee?._id,
+      ipVerification: this.ipVerification
     }
     if(this.usernameValue.length > 5 && this.firstNameValue.length > 2 && this.lastNameValue.length > 2 && this.emailValue.length > 6) {
       this.isButtonActive = true;

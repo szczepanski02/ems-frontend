@@ -4,4 +4,5 @@ export interface ICreateEmployeePayload {
   email: string;
   firstName: string;
   lastName: string;
+  ipVerification?: boolean;
 }

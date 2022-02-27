@@ -11,4 +11,5 @@ export interface IEmployee {
   firstName: string;
   lastName: string;
   isActive: boolean;
+  ipVerification: boolean;
 }

@@ -7,4 +7,5 @@ export interface ITableEmployee {
   email: string;
   isActive: boolean;
   authority: Authority;
+  ipVerification: boolean;
 }

@@ -1,3 +1,4 @@
+import { EmployeesIpsRequestsComponent } from './employees-ips-requests/employees-ips-requests.component';
 import { EmployeesManagementComponent } from './employees-management.component';
 import { EmployeeEditComponent } from './employee-edit/employee-edit.component';
 import { NgModule } from '@angular/core';
@@ -10,9 +11,14 @@ const routes: Routes = [
     component: EmployeesManagementComponent
   },
   {
-    path: ':username',
+    path: 'edit/:username',
     data: { authorities: [Authority.ROOT] },
     component: EmployeeEditComponent
+  },
+  {
+    path: 'ip_requests',
+    data: { authorities: [Authority.ROOT] },
+    component: EmployeesIpsRequestsComponent
   }
 ];
 

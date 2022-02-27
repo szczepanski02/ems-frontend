@@ -106,9 +106,9 @@ export const navItemList = [
   },
   {
     category: 'employees_management',
-    title: 'Verification requests',
+    title: 'IPs requests',
     icon: 'playlist_add_check',
-    directTo: 'employees/management/verification_requests',
+    directTo: 'employees/management/ip_requests',
     authorities: [ Authority.ROOT ]
   },
   {
