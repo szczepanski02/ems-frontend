@@ -1,3 +1,4 @@
+import { EmployeeIPsService } from 'src/app/services/employee/employeeIPs.service';
 import { ConfirmationDialogComponent } from './../../../../shared/reusable-components/confirmation-dialog/confirmation-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastMessageService } from 'src/app/shared/reusable-components/toast-message/toast-message.service';
@@ -10,6 +11,7 @@ import { Subscription } from 'rxjs';
 import { Authority } from 'src/app/shared/constants/authority';
 import { IEmployeeWithOptionalParams } from 'src/app/interfaces/IEmployeeWithOptionalParams';
 import { toastMessageType } from 'src/app/shared/constants/toastMessageType';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-employee-edit',
@@ -32,9 +34,16 @@ export class EmployeeEditComponent implements OnInit, OnDestroy {
 
   getEmployeeSubscription?: Subscription;
   saveEmployeeSubscription?: Subscription;
+  
+  // verified IPS table
+  displayedColumnsOfVerificatedIPs: string[] = ['ip', 'action'];
+  dataVerificatedIPs = new MatTableDataSource<string>();
+  getIPsSubscription?: Subscription;
+  deleteIPSubscription?: Subscription;
 
   constructor(
     private readonly route: ActivatedRoute,
+    private readonly employeeIPsService: EmployeeIPsService,
     private readonly employeeService: EmployeeService,
     private readonly router: Router,
     private readonly toastMessageService: ToastMessageService,
@@ -61,6 +70,8 @@ export class EmployeeEditComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.getEmployeeSubscription?.unsubscribe();
     this.saveEmployeeSubscription?.unsubscribe();
+    this.getIPsSubscription?.unsubscribe();
+    this.deleteIPSubscription?.unsubscribe();
   }
 
   handleEmployeeData(response: ISuccessResponse<IEmployee>) {
@@ -73,7 +84,48 @@ export class EmployeeEditComponent implements OnInit, OnDestroy {
     this.emailValue = response.body.email;
     this.isActive = response.body.isActive;
     this.ipVerification = response.body.ipVerification;
+    this.loadIPsData()
   }
+
+  // ips table
+  loadIPsData(): void {
+    if(!this.modifiedEmployee?.id) {
+      setTimeout(() => {
+        this.loadIPsData();
+      }, 500);
+      return;
+    }
+    this.getIPsSubscription = this.employeeIPsService.getVerifiedRequestsOfAuthorizatedEmployee(this.modifiedEmployee.id).subscribe(response => {
+      this.dataVerificatedIPs.data = response.body;
+    });
+  }
+
+  searchingValueForVerificatedIPsChange(): void {
+    
+  }
+
+  openConfirmDeleteIPsDialog(ip: string): void {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      data: {
+        title: 'Verified IP deletion',
+        content: `Are you sure to delete verified IP ${ ip }?`
+      },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        if(!this.modifiedEmployee?.id) {
+          this.toastMessageService.setMessage('Verified IP Management', 'Cannot get employee ID, please raport this issue to IT Support', toastMessageType.INFO, 5);
+          return;
+        }
+        this.deleteIPSubscription = this.employeeIPsService.deleteVerificatedIP(this.modifiedEmployee.id, ip).subscribe(response => {
+          this.toastMessageService.setMessage('Verified IP Management', response.body, toastMessageType.INFO, 5);
+          this.loadIPsData();
+        });
+      }
+    });
+  }
+  // -------
 
   employeeProfilePropertyChanged(): void {
     this.modifiedEmployee = {
@@ -113,7 +165,7 @@ export class EmployeeEditComponent implements OnInit, OnDestroy {
   }
 
   handleDelete(): void {
-    const result = this.openConfirmDeleteDialog();
+    this.openConfirmDeleteDialog();
   }
 
   openConfirmDeleteDialog(): boolean | void {
@@ -138,5 +190,4 @@ export class EmployeeEditComponent implements OnInit, OnDestroy {
       }
     });
   }
-
 }

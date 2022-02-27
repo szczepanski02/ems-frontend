@@ -41,4 +41,14 @@ export class EmployeeIPsService {
     return this.http.delete<ISuccessResponse<string>>(`${this.api}/verificatedIP`, options );
   }
 
+  deleteVerificatedIP(employeeId: string, ip: string): Observable<ISuccessResponse<string>> {
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      body: { ip },
+    };
+    return this.http.delete<ISuccessResponse<string>>(`${this.api}/verificatedIP/${employeeId}`, options );
+  }
+
 }

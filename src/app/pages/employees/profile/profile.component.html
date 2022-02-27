@@ -20,7 +20,7 @@
         <p><span class="employeeData-item">Role:</span> {{ employeeData?.authority }}</p>
         <p><span class="employeeData-item">Is active:</span> {{ employeeData?.isActive }}</p>
         <p><span class="employeeData-item">Created by:</span> {{ employeeData?.createdBy }}</p>
-        <p><span class="employeeData-item">Created at:</span> {{ employeeData?.createdAt }}</p>
+        <p><span class="employeeData-item">Created at:</span> {{ employeeData?.createdAt | date:'medium' }}</p>
       </div>
     </mat-card>
   

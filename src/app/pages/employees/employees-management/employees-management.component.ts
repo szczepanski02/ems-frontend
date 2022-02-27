@@ -89,8 +89,8 @@ export class EmployeesManagementComponent implements OnInit, OnDestroy, AfterVie
     this.filterModelChanged.next(true);
   }
 
-  handleRowClick(username: string) {
+  handleRowClick(username: string): void {
     this.router.navigate(['/employees/management/edit/', username]);
   }
-
+  
 }

@@ -27,7 +27,7 @@
               <mat-icon>close</mat-icon>
             </button>
           </mat-form-field>
-    
+          <div></div>
           <mat-form-field appearance="outline" class="employee__input">
             <mat-label>Last name</mat-label>
             <input maxlength="14" matInput placeholder="Last name" [(ngModel)]="lastNameValue" (ngModelChange)="employeeProfilePropertyChanged()">
@@ -60,5 +60,63 @@
     </mat-card>
   
     <app-employee-profile-previewer *ngIf="modifiedEmployee" [employee]="modifiedEmployee"></app-employee-profile-previewer>
+  </div>
+
+</div>
+
+<!-- IPS & LOGS -->
+<div class="container">
+  <div class="row">
+    <mat-card class="ips__container">
+      <mat-card-header>
+        <div mat-card-avatar>
+          <mat-icon class="profile_img-icon mat-elevation-z10">verified_user</mat-icon>
+        </div>
+        <mat-card-title >Verified IPs</mat-card-title>
+        <mat-card-subtitle>Find employee and manage his verificated connections</mat-card-subtitle>
+      </mat-card-header>
+
+      <div class="divider-accent"></div>
+
+      <mat-card-content>
+        <div class="table-container">
+          <table mat-table [dataSource]="dataVerificatedIPs" class="table-small mat-elevation-z8">
+      
+            <ng-container matColumnDef="ip">
+              <th mat-header-cell *matHeaderCellDef> IP </th>
+              <td mat-cell *matCellDef="let element"> {{ element }} </td>
+            </ng-container>
+      
+            <ng-container matColumnDef="action">
+              <th mat-header-cell *matHeaderCellDef> Actions </th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-icon-button color="warn" aria-label="Delete verified IP" (click)="openConfirmDeleteIPsDialog(element)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+          
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsOfVerificatedIPs"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsOfVerificatedIPs;"></tr>
+          </table>
+        </div>
+      </mat-card-content>
+
+    </mat-card>
+
+    <mat-card>
+      <mat-card-header>
+        <div mat-card-avatar>
+          <mat-icon class="profile_img-icon mat-elevation-z10">history</mat-icon>
+        </div>
+        <mat-card-title >Employee logs</mat-card-title>
+        <mat-card-subtitle>All logged operations maked by this employee</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <app-employee-logs class="test"></app-employee-logs>
+      </mat-card-content>
+    </mat-card>
+
   </div>
 </div>
