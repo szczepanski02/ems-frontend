@@ -1,3 +1,4 @@
+import { Authority } from './../shared/constants/authority';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
@@ -40,7 +41,7 @@ export class AuthService {
     return this.isLoggedIn.asObservable();
   }
 
-  setSession(token: string) {
+  setSession(token: string): void {
     localStorage.setItem('access_token', token);
   }
 
@@ -48,9 +49,14 @@ export class AuthService {
     if(redirect) {
       localStorage.setItem('redirectTo', this.router.url);
     }
-    localStorage.removeItem('access_token');
-    this.router.navigate(['login']);
+    // localStorage.removeItem('access_token');
+    // this.router.navigate(['login']);
     this.setIsLoggedIn(false);
+  }
+
+  setAuthority(employeeId: string, authority: Authority): Observable<ISuccessResponse<string>> {
+    const payload = { employeeId, authority };
+    return this.http.post<ISuccessResponse<string>>(`${this.api}/authority`, payload);
   }
 
 }

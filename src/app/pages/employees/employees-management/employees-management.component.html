@@ -38,11 +38,6 @@
           <mat-icon class="icon-xl">add</mat-icon>
           <span>Create</span>
         </button>
-        <div class="margin-between"></div>
-        <button mat-raised-button color="primary" class="textIcon-btn">
-          <mat-icon class="icon-xl">admin_panel_settings</mat-icon>
-          <span>Authorities</span>
-        </button>
       </div>
 
     </div>
@@ -85,12 +80,21 @@
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Authority</th>
             <td mat-cell *matCellDef="let element">{{ element.authority }}</td>
           </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Actions</th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-icon-button color="primary" (click)="handleEmployeeEditClick(element.username)" aria-label="Edit employee">
+                <mat-icon>manage_accounts</mat-icon>
+              </button>
+              <button mat-icon-button color="accent" [disabled]="!isRoot" (click)="handleEmployeeAuthorityEditClick(element.username)" aria-label="Edit authorities of employee">
+                <mat-icon>add_moderator</mat-icon>
+              </button>
+            </td>
+          </ng-container>
         
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row
-          *matRowDef="let row; columns: displayedColumns;"
-          (click)="handleRowClick(row.username)"
-          ></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
         </table>
       </div>

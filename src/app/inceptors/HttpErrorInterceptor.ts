@@ -16,6 +16,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
       catchError((err: HttpErrorResponse) => {
         if(err.status === 401) {
           if(this.router.url === '/login') {
+            console.log(err);
             this.toastMessageService.setMessage('Authentication', err.error.message, toastMessageType.ERROR, 5);
             return of(true);
           }

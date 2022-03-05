@@ -7,11 +7,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EmployeesManagementRoutingModule } from './employees-management-routing.module';
 import { EmployeeLogsComponent } from './employee-edit/employee-logs/employee-logs.component';
+import { EmployeeAuthorityDialogComponent } from './employee-authority-dialog/employee-authority-dialog.component';
 
 
 
 @NgModule({
-  declarations: [EmployeesManagementComponent, EmployeeCreatorDialogComponent, EmployeeEditComponent, EmployeesIpsRequestsComponent, EmployeeLogsComponent],
+  declarations: [EmployeesManagementComponent, EmployeeCreatorDialogComponent, EmployeeEditComponent, EmployeesIpsRequestsComponent, EmployeeLogsComponent, EmployeeAuthorityDialogComponent],
   imports: [
     CommonModule,
     EmployeesManagementRoutingModule,

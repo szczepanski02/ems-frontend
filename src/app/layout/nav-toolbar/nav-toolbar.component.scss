@@ -27,7 +27,14 @@
   margin-left: 40px;
 }
 
+.logo-container {
+  display: flex;
+  align-items: center;
 
+  & small {
+    padding-left: 5px;
+  }
+}
 
 // hamburger btn
 .hamburger_btn {

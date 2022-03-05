@@ -1,3 +1,4 @@
+import { HttpCredentialsInterceptor } from './inceptors/HttpCredentialsInterceptor';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -32,7 +33,8 @@ import { HttpErrorInterceptor } from './inceptors/HttpErrorInterceptor';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: HttpCredentialsInterceptor, multi: true }
   ],
   bootstrap: [AppComponent],
 })

@@ -1,0 +1,32 @@
+<div class="employeeCreator">
+  <h2 mat-dialog-title>Employee authority management</h2>
+  <div class="divider-accent"></div>
+
+  <mat-dialog-content [showIfWidthBetween]="[900,10000]" class="employeeCreator__content">
+    <div class="left-side">
+      <h3>Choose authority for employee</h3>
+      <mat-form-field appearance="fill" class="action-bar__search-by">
+        <mat-label>Authority</mat-label>
+        <mat-select [(ngModel)]="selectedAuthorityValue">
+          <mat-option value="ADMIN">ADMIN</mat-option>
+          <mat-option value="MODERATOR">MODERATOR</mat-option>
+          <mat-option value="IT_SUPPORT">IT_SUPPORT</mat-option>
+          <mat-option value="DATA_SUPPORT">DATA_SUPPORT</mat-option>
+          <mat-option value="CLIENT_SUPPORT">CLIENT_SUPPORT</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="right-side">
+      <app-employee-profile-previewer *ngIf="employee" [employee]="employee"></app-employee-profile-previewer>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-content [showIfWidthBetween]="[100,900]" class="employeeCreator__content">
+    <p>This view is allowed only on desktop devices</p>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button color="primary" (click)="handleSave()">Save</button>
+  </mat-dialog-actions>
+</div>

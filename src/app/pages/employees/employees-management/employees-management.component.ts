@@ -1,3 +1,6 @@
+import { EmployeeProfileService } from './../../../services/employee/employee-profie.service';
+import { IEmployee } from './../../../interfaces/IEmployee';
+import { EmployeeAuthorityDialogComponent } from './employee-authority-dialog/employee-authority-dialog.component';
 import { Router } from '@angular/router';
 import { ISuccessResponse } from 'src/app/interfaces/ISuccessResponse';
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
@@ -21,9 +24,10 @@ import { IPageableList } from 'src/app/interfaces/IResPageableList';
 export class EmployeesManagementComponent implements OnInit, OnDestroy, AfterViewInit {
 
   dataSource = new MatTableDataSource<ITableEmployee>();
-  displayedColumns: string[] = ['username', 'firstName', 'lastName', 'email', 'isActive', 'ipVerification' ,'authority'];
+  displayedColumns: string[] = ['username', 'firstName', 'lastName', 'email', 'isActive', 'ipVerification','authority', 'actions'];
   pageIndex: number = 1;
   pageSize: number = 10;
+  isRoot = this.employeeProfileService.getAuthority();
 
   dataSubscription?: Subscription;
 
@@ -36,6 +40,7 @@ export class EmployeesManagementComponent implements OnInit, OnDestroy, AfterVie
 
   constructor(
     private employeeService: EmployeeService,
+    private employeeProfileService: EmployeeProfileService,
     private toastMessageService: ToastMessageService,
     public dialog: MatDialog,
     private router: Router
@@ -89,8 +94,16 @@ export class EmployeesManagementComponent implements OnInit, OnDestroy, AfterVie
     this.filterModelChanged.next(true);
   }
 
-  handleRowClick(username: string): void {
+  handleEmployeeEditClick(username: string): void {
     this.router.navigate(['/employees/management/edit/', username]);
+  }
+
+  handleEmployeeAuthorityEditClick(username: string) {
+    this.dialog.open(EmployeeAuthorityDialogComponent, {
+      data: {
+        username
+      }
+    });
   }
   
 }

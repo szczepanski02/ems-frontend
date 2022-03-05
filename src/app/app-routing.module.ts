@@ -8,23 +8,27 @@ const routes: Routes = [
   {
     path: 'login',
     canActivate: [NonAuthorizatedGuard],
+    pathMatch: 'full',
     loadChildren: () => import('./pages/login-page/login-page.module').then(m => m.LoginPageModule)
   },
   {
     path: '',
     loadChildren: () => import('./pages/global-management/global-management.module').then(m => m.GlobalManagementModule),
     data: { authorities: [Authority.MODERATOR, Authority.ADMIN, Authority.ROOT] },
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    pathMatch: 'full'
   },
   {
     path: 'employees',
     loadChildren: () => import('./pages/employees/employee.module').then(m => m.EmployeeModule),
     data: { authorities: [Authority.MODERATOR, Authority.ADMIN, Authority.ROOT] },
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    pathMatch: 'full'
   },
   {
     path: '**',
-    redirectTo: ''
+    redirectTo: '',
+    pathMatch: 'full'
   }
 ];
 
