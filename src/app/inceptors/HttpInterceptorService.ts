@@ -7,14 +7,14 @@ import { Observable } from "rxjs";
 export class HttpInterceptorService implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    // const accessToken = localStorage.getItem("access_token");
-    // if(accessToken) {
-    //   req = req.clone({
-    //     setHeaders: {
-    //       Authorization: `Bearer ${accessToken}`
-    //     }
-    //   });
-    // }
+    const accessToken = localStorage.getItem("access_token");
+    if(accessToken) {
+      req = req.clone({
+        setHeaders: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      });
+    }
     return next.handle(req);
   }
 }

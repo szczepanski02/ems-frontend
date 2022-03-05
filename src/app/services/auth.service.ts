@@ -49,8 +49,8 @@ export class AuthService {
     if(redirect) {
       localStorage.setItem('redirectTo', this.router.url);
     }
-    // localStorage.removeItem('access_token');
-    // this.router.navigate(['login']);
+    localStorage.removeItem('access_token');
+    this.router.navigate(['login']);
     this.setIsLoggedIn(false);
   }
 

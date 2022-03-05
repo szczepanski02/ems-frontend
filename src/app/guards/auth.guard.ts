@@ -1,4 +1,3 @@
-import { Authority } from './../shared/constants/authority';
 import { EmployeeProfileService } from '../services/employee/employee-profie.service';
 import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, CanActivate, Router } from "@angular/router";

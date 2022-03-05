@@ -40,7 +40,7 @@ export class LoginPageComponent implements OnInit {
   }
 
   authenticationSuccess(response: any): void {
-    // this.authService.setSession(response.body.access_token);
+    this.authService.setSession(response.body.access_token);
     this.router.navigate(['/']);
     setTimeout(() => {
       this.toastMessageService.setMessage('Authorization', 'Logged in', toastMessageType.INFO, 5);
