@@ -16,7 +16,6 @@ export class HttpErrorInterceptor implements HttpInterceptor {
       catchError((err: HttpErrorResponse) => {
         if(err.status === 401) {
           if(this.router.url === '/login') {
-            console.log(err);
             this.toastMessageService.setMessage('Authentication', err.error.message, toastMessageType.ERROR, 5);
             return of(true);
           }
@@ -33,7 +32,6 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           return of(true)
         }
         if(err.error.message && (err.status !== 403 && err.status !== 401)) {
-          console.log(err);
           this.toastMessageService.setMessage('Error', err.error.message, toastMessageType.ERROR, 5);
         }
         return of(false)

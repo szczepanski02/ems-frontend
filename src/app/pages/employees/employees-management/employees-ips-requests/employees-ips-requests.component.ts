@@ -39,8 +39,6 @@ export class EmployeesIpsRequestsComponent implements OnInit {
     public dialog: MatDialog
   ) {
     this.filterModelChanged.pipe(debounceTime(300)).subscribe(() => {
-      console.log(this.searchingValue);
-      console.log(this.searchByValue);
       if(!this.dataTableCopy) return;
       this.dataSource.data = this.dataTableCopy;
       if(this.searchByValue === 'username') {

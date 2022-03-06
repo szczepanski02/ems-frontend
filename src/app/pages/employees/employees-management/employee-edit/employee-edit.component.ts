@@ -155,7 +155,6 @@ export class EmployeeEditComponent implements OnInit, OnDestroy {
   }
 
   saveChanges(): void {
-    console.log(this.modifiedEmployee);
     if(!this.modifiedEmployee) {
       return;
     }

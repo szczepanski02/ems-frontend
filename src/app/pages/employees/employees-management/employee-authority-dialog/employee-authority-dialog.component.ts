@@ -49,7 +49,6 @@ export class EmployeeAuthorityDialogComponent implements OnInit, OnDestroy {
 
   getEmployeeByUsername(username: string): void {
     this.employeeSubscription = this.employeeService.getEmployeeByUsername(username).subscribe(response => {
-      console.log(response.body);
       this.employee = response.body;
       this.selectedAuthorityValue = response.body.authority;
     });
