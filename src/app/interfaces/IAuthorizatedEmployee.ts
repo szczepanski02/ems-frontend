@@ -1,7 +1,7 @@
 import { Authority } from "../shared/constants/authority";
 
 export interface IAuthorizatedEmployee {
-  id?: string;
+  id?: number;
   username?: string;
   email?: string;
   authority?: Authority;

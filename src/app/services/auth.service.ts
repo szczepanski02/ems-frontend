@@ -54,11 +54,6 @@ export class AuthService {
     this.setIsLoggedIn(false);
   }
 
-  setAuthority(employeeId: string, authority: Authority): Observable<ISuccessResponse<string>> {
-    const payload = { employeeId, authority };
-    return this.http.post<ISuccessResponse<string>>(`${this.api}/authority`, payload);
-  }
-
 }
 
 interface ISignInPayload {

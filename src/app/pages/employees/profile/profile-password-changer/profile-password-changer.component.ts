@@ -39,10 +39,12 @@ export class ProfilePasswordChangerComponent implements OnInit, OnDestroy {
   }
 
   handleEmployeePasswordChanger(): void {
+    const id = this.employeeProfileService.getId();
+    if(!id) return;
     this.employeePasswordChangeSubscription = this.employeeProfileService.changeEmployeePassword({
       password: this.passwordValue,
       newPassword: this.newPasswordValue
-    }).subscribe(response => {
+    }, id).subscribe(response => {
         this.toastMessageService.setMessage('Password change', response.body, toastMessageType.INFO, 5);
         this.passwordValue = '';
         this.newPasswordValue = '';

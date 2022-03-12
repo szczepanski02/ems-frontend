@@ -1,7 +1,7 @@
 import { Authority } from "../shared/constants/authority";
 
 export interface IUserFromToken {
-  _id: string;
+  id: number;
   username: string;
   authority: Authority;
   firstName: string;

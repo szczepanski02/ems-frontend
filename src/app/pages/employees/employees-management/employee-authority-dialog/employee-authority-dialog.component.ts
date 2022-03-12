@@ -1,5 +1,4 @@
 import { Authority } from 'src/app/shared/constants/authority';
-import { AuthService } from 'src/app/services/auth.service';
 import { EmployeeService } from './../../../../services/employee/employee.service';
 import { ToastMessageService } from './../../../../shared/reusable-components/toast-message/toast-message.service';
 import { Subscription } from 'rxjs';
@@ -24,8 +23,7 @@ export class EmployeeAuthorityDialogComponent implements OnInit, OnDestroy {
     @Inject(MAT_DIALOG_DATA) public data: { username: string },
     private dialogRef: MatDialogRef<EmployeeAuthorityDialogComponent>,
     private toastMessageService: ToastMessageService,
-    private employeeService: EmployeeService,
-    private authService: AuthService
+    private employeeService: EmployeeService
   ) { }
 
   ngOnInit(): void {
@@ -57,7 +55,7 @@ export class EmployeeAuthorityDialogComponent implements OnInit, OnDestroy {
   handleSave(): void {
     if(this.selectedAuthorityValue && this.employee) {
       
-      this.setAuthoritySubscription = this.authService.setAuthority(this.employee._id, this.selectedAuthorityValue).subscribe(response => {
+      this.setAuthoritySubscription = this.employeeService.setAuthority(this.employee.id, this.selectedAuthorityValue).subscribe(response => {
         this.handleResponseSuccess(response.body);
       });
       

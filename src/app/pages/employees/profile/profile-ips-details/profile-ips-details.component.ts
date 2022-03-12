@@ -42,6 +42,7 @@ export class ProfileIpsDetailsComponent implements OnInit, OnDestroy {
     }
     this.getListOfIpsSubscription = this.employeeIPsService.getVerifiedRequestsOfAuthorizatedEmployee(employeeId)
     .subscribe(response => {
+      console.log(response);
       this.dataSource.data = response.body;
     });
   }
@@ -51,17 +52,18 @@ export class ProfileIpsDetailsComponent implements OnInit, OnDestroy {
     this.deleteIPSubscription?.unsubscribe();
   }
 
-  openConfirmDeleteDialog(ip: string): boolean | void {
+  openConfirmDeleteDialog(element: { address: string, id: number }): boolean | void {
+    console.log(element.id);
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       data: {
         title: 'Verified IP deletion',
-        content: `Are you sure to delete verified IP ${ ip }?`
+        content: `Are you sure to delete verified IP ${ element.address }?`
       },
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if(result) {
-        this.deleteIPSubscription = this.employeeIPsService.deleteVerificatedIPOfAuthorizatedEmployee(ip).subscribe(response => {
+        this.deleteIPSubscription = this.employeeIPsService.deleteVerificatedIP(element.id).subscribe(response => {
           this.toastMessageService.setMessage('Verified IP', response.body, toastMessageType.INFO, 5);
           this.loadData();
         });

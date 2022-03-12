@@ -77,7 +77,7 @@ export class EmployeeEditComponent implements OnInit, OnDestroy {
   handleEmployeeData(response: ISuccessResponse<IEmployee>) {
     this.employee = response.body;
     this.modifiedEmployee = response.body;
-    this.modifiedEmployee.id = response.body._id;
+    this.modifiedEmployee.id = response.body.id;
     this.usernameValue = response.body.username;
     this.firstNameValue = response.body.firstName;
     this.lastNameValue = response.body.lastName;
@@ -100,15 +100,11 @@ export class EmployeeEditComponent implements OnInit, OnDestroy {
     });
   }
 
-  searchingValueForVerificatedIPsChange(): void {
-    
-  }
-
-  openConfirmDeleteIPsDialog(ip: string): void {
+  openConfirmDeleteIPsDialog(element: { id: number, address: string }): void {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       data: {
         title: 'Verified IP deletion',
-        content: `Are you sure to delete verified IP ${ ip }?`
+        content: `Are you sure to delete verified IP ${ element.address }?`
       },
     });
 
@@ -118,9 +114,10 @@ export class EmployeeEditComponent implements OnInit, OnDestroy {
           this.toastMessageService.setMessage('Verified IP Management', 'Cannot get employee ID, please raport this issue to IT Support', toastMessageType.INFO, 5);
           return;
         }
-        this.deleteIPSubscription = this.employeeIPsService.deleteVerificatedIP(this.modifiedEmployee.id, ip).subscribe(response => {
-          this.toastMessageService.setMessage('Verified IP Management', response.body, toastMessageType.INFO, 5);
-          this.loadIPsData();
+        this.deleteIPSubscription = this.employeeIPsService.deleteVerificatedIP(element.id)
+          .subscribe(response => {
+            this.toastMessageService.setMessage('Verified IP Management', response.body, toastMessageType.INFO, 5);
+            this.loadIPsData();
         });
       }
     });
@@ -137,7 +134,7 @@ export class EmployeeEditComponent implements OnInit, OnDestroy {
       createdAt: this.employee?.createdAt,
       createdBy: this.employee?.createdBy,
       isActive: this.isActive,
-      id: this.employee?._id,
+      id: this.employee?.id,
       ipVerification: this.ipVerification
     }
     if(this.usernameValue.length > 5 && this.firstNameValue.length > 2 && this.lastNameValue.length > 2 && this.emailValue.length > 6) {
@@ -177,10 +174,10 @@ export class EmployeeEditComponent implements OnInit, OnDestroy {
 
     dialogRef.afterClosed().subscribe(result => {
       if(result) {
-        if(!this.modifiedEmployee || !this.modifiedEmployee._id) {
+        if(!this.modifiedEmployee || !this.modifiedEmployee.id) {
           return this.toastMessageService.setMessage('Employee management', 'Some problem with server, please reload page', toastMessageType.WARN, 5);
         }
-        this.employeeService.deleteEmployee(this.modifiedEmployee._id).subscribe(result => {
+        this.employeeService.deleteEmployee(this.modifiedEmployee.id).subscribe(result => {
           this.toastMessageService.setMessage('Employee management', result.body, toastMessageType.INFO, 5);
           this.router.navigate(['/employees/management']);
         });

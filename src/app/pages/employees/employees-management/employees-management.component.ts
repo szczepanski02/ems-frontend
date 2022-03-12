@@ -99,10 +99,13 @@ export class EmployeesManagementComponent implements OnInit, OnDestroy, AfterVie
   }
 
   handleEmployeeAuthorityEditClick(username: string) {
-    this.dialog.open(EmployeeAuthorityDialogComponent, {
+    const dialogRef = this.dialog.open(EmployeeAuthorityDialogComponent, {
       data: {
         username
       }
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      this.loadData(this.pageIndex, this.pageSize, this.searchByValue, this.searchingValue);
     });
   }
   

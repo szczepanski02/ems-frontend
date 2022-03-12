@@ -6,6 +6,7 @@ import { IEmployee } from 'src/app/interfaces/IEmployee';
 import { IEmployeeWithOptionalParams } from 'src/app/interfaces/IEmployeeWithOptionalParams';
 import { IPageableList } from 'src/app/interfaces/IResPageableList';
 import { ITableEmployee } from 'src/app/interfaces/ITableEmployee';
+import { Authority } from 'src/app/shared/constants/authority';
 import { environment } from 'src/environments/environment';
 import { ISuccessResponse } from '../../interfaces/ISuccessResponse';
 
@@ -19,10 +20,10 @@ export class EmployeeService {
   constructor(private http: HttpClient) { }
 
   createNewEmployee(payload: ICreateEmployeePayload): Observable<ISuccessResponse<string>> {
-    return this.http.post<ISuccessResponse<string>>(`${this.api}/create`, payload);
+    return this.http.post<ISuccessResponse<string>>(`${this.api}`, payload);
   }
 
-  getEmployee(id: string | undefined): Observable<ISuccessResponse<IEmployee>> {
+  getEmployee(id: number | undefined): Observable<ISuccessResponse<IEmployee>> {
     return this.http.get<ISuccessResponse<IEmployee>>(`${this.api}/${id}`);
   }
 
@@ -42,7 +43,7 @@ export class EmployeeService {
     return this.http.get<ISuccessResponse<IEmployee>>(`${this.api}/username/${username}`);
   }
 
-  getEmployeeProfileImage(id: string) {
+  getEmployeeProfileImage(id: number) {
     return this.http.get(`${this.api}-profile/avatar/${id}`, { responseType: 'blob' });
   }
 
@@ -50,8 +51,13 @@ export class EmployeeService {
     return this.http.put<ISuccessResponse<string>>(`${this.api}/${payload.id}`, payload);
   }
 
-  deleteEmployee(id: string): Observable<ISuccessResponse<string>> {
+  deleteEmployee(id: number): Observable<ISuccessResponse<string>> {
     return this.http.delete<ISuccessResponse<string>>(`${this.api}/${id}`);
+  }
+
+  setAuthority(employeeId: number, authority: Authority): Observable<ISuccessResponse<string>> {
+    const payload = { authority };
+    return this.http.put<ISuccessResponse<string>>(`${this.api}/authority/${employeeId}`, payload);
   }
 
 }

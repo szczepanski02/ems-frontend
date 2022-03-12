@@ -16,11 +16,11 @@ export class EmployeeProfileService {
 
   constructor(private readonly http: HttpClient) {}
 
-  setId(state: string): void {
+  setId(state: number): void {
     this.authorizatedEmployee.id = state;
   }
 
-  getId(): string | undefined {
+  getId(): number | undefined {
     return this.authorizatedEmployee.id;
   }
 
@@ -70,8 +70,8 @@ export class EmployeeProfileService {
     });
   }
   
-  changeEmployeePassword(payload: IPasswordChangePayload): Observable<ISuccessResponse<string>> {
-    return this.http.put<any>(`${this.api}/change-password`, payload);
+  changeEmployeePassword(payload: IPasswordChangePayload, id: number): Observable<ISuccessResponse<string>> {
+    return this.http.put<any>(`${this.api}/password/${id}`, payload);
   }
 
 }

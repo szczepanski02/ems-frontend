@@ -1,7 +1,7 @@
 import { Authority } from "../shared/constants/authority";
 
 export interface IEmployee {
-  _id: string;
+  id: number;
   username: string;
   email: string;
   profileImg: string;

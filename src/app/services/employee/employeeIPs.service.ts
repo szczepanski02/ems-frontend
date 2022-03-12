@@ -1,4 +1,4 @@
-import { I_IPRequestWithEmployeeCredentails } from './../../interfaces/I_IPRequestWithEmployeeCredentials';
+import { IPRequestWithUserParam } from './../../interfaces/IPRequestWithUserParam';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -11,44 +11,29 @@ import { ISuccessResponse } from '../../interfaces/ISuccessResponse';
 })
 export class EmployeeIPsService {
 
-  private api = `${environment.apiUrl}/auth/ips`;
+  private apiAuthIps = `${environment.apiUrl}/auth-ips`;
+  private apiAuthRequests = `${environment.apiUrl}/auth-requests`;
 
   constructor(private http: HttpClient) { }
 
-  getListOfRequests(): Observable<ISuccessResponse<I_IPRequestWithEmployeeCredentails[]>> {
-    return this.http.get<ISuccessResponse<I_IPRequestWithEmployeeCredentails[]>>(`${this.api}/request`);
+  getListOfRequests(): Observable<ISuccessResponse<IPRequestWithUserParam[]>> {
+    return this.http.get<ISuccessResponse<IPRequestWithUserParam[]>>(`${this.apiAuthRequests}`);
   }
 
   acceptRequest(requestId: string): Observable<ISuccessResponse<string>> {
-    return this.http.post<ISuccessResponse<string>>(`${this.api}/request/${requestId}`, {});
+    return this.http.post<ISuccessResponse<string>>(`${this.apiAuthRequests}/${requestId}`, {});
   }
 
   removeRequest(requestId: string): Observable<ISuccessResponse<string>> {
-    return this.http.delete<ISuccessResponse<string>>(`${this.api}/request/${requestId}`, {});
+    return this.http.delete<ISuccessResponse<string>>(`${this.apiAuthRequests}/${requestId}`, {});
   }
 
-  getVerifiedRequestsOfAuthorizatedEmployee(employeeId: string): Observable<ISuccessResponse<string[]>> {
-    return this.http.get<ISuccessResponse<string[]>>(`${this.api}/verificatedIP/${employeeId}`);
+  getVerifiedRequestsOfAuthorizatedEmployee(employeeId: number): Observable<ISuccessResponse<string[]>> {
+    return this.http.get<ISuccessResponse<string[]>>(`${this.apiAuthIps}/${employeeId}`);
   }
 
-  deleteVerificatedIPOfAuthorizatedEmployee(ip: string): Observable<ISuccessResponse<string>> {
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-      body: { ip },
-    };
-    return this.http.delete<ISuccessResponse<string>>(`${this.api}/verificatedIP`, options );
-  }
-
-  deleteVerificatedIP(employeeId: string, ip: string): Observable<ISuccessResponse<string>> {
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-      body: { ip },
-    };
-    return this.http.delete<ISuccessResponse<string>>(`${this.api}/verificatedIP/${employeeId}`, options );
+  deleteVerificatedIP(id: number): Observable<ISuccessResponse<string>> {
+    return this.http.delete<ISuccessResponse<string>>(`${this.apiAuthIps}/${id}`);
   }
 
 }

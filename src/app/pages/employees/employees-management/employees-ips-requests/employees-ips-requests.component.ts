@@ -1,4 +1,4 @@
-import { I_IPRequestWithEmployeeCredentails } from './../../../../interfaces/I_IPRequestWithEmployeeCredentials';
+import { IPRequestWithUserParam } from './../../../../interfaces/IPRequestWithUserParam';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { debounceTime, Subject, Subscription } from 'rxjs';
@@ -18,8 +18,8 @@ import { ConfirmationDialogComponent } from 'src/app/shared/reusable-components/
 })
 export class EmployeesIpsRequestsComponent implements OnInit {
 
-  dataSource = new MatTableDataSource<I_IPRequestWithEmployeeCredentails>();
-  dataTableCopy?: I_IPRequestWithEmployeeCredentails[];
+  dataSource = new MatTableDataSource<IPRequestWithUserParam>();
+  dataTableCopy?: IPRequestWithUserParam[];
   displayedColumns: string[] = ['username', 'firstName', 'lastName', 'ip', 'createdAt'];
 
   dataSubscription?: Subscription;

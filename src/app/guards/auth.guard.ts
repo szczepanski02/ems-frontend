@@ -23,7 +23,7 @@ export class AuthGuard implements CanActivate {
   employeeDataSetup(data: IUserFromToken): void {
       this.employeeProfileService.setAuthority(data.authority);
       this.employeeProfileService.setUsername(data.username);
-      this.employeeProfileService.setId(data._id);
+      this.employeeProfileService.setId(data.id);
       this.employeeProfileService.setFirstname(data.firstName);
       this.employeeProfileService.setLastname(data.lastName);
   }
