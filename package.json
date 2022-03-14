@@ -13,7 +13,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "postinstall": "ng build --aot --prod",
-    "heroku-postbuild": "ng build --prod"
+    "heroku-postbuild": "ng build --prod",
+    "deploy:heroku": "git push heroku main"
   },
   "private": true,
   "dependencies": {
