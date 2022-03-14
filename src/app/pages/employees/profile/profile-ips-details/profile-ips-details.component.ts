@@ -42,7 +42,6 @@ export class ProfileIpsDetailsComponent implements OnInit, OnDestroy {
     }
     this.getListOfIpsSubscription = this.employeeIPsService.getVerifiedRequestsOfAuthorizatedEmployee(employeeId)
     .subscribe(response => {
-      console.log(response);
       this.dataSource.data = response.body;
     });
   }
@@ -53,7 +52,6 @@ export class ProfileIpsDetailsComponent implements OnInit, OnDestroy {
   }
 
   openConfirmDeleteDialog(element: { address: string, id: number }): boolean | void {
-    console.log(element.id);
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       data: {
         title: 'Verified IP deletion',

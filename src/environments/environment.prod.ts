@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://ems-backend-nest.herokuapp.com/ems'
+  apiUrl: 'https://evelto-api.herokuapp.com/ems'
 };
